@@ -22,7 +22,8 @@
     "valid-typeof": "warn",
     "quotes": [2, "single"],
     "semi": ["off"],
-    "arrow-body-style": "off"
+    "arrow-body-style": "off",
+    "linebreak-style": 0
   },
   "parser": "babel-eslint",
   "extends": "airbnb",
