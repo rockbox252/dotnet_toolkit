@@ -24,7 +24,9 @@
     "semi": ["off"],
     "arrow-body-style": "off",
     "linebreak-style": 0,
-    "comma-dangle": "off"
+    "comma-dangle": "off",
+    "arrow-parens": "off",
+    "class-methods-use-this": "off"
   },
   "parser": "babel-eslint",
   "extends": "airbnb",
