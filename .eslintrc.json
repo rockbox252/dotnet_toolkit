@@ -26,7 +26,8 @@
     "linebreak-style": 0,
     "comma-dangle": "off",
     "arrow-parens": "off",
-    "class-methods-use-this": "off"
+    "class-methods-use-this": "off",
+    "object-curly-newline": "off"
   },
   "parser": "babel-eslint",
   "extends": "airbnb",

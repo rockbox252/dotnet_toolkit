@@ -11,8 +11,10 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    minHeight: '20vw',
+    minHeight: '20vh',
+    minWidth: '50vw',
     marginTop: 100,
+    padding: 10,
   },
 }));
 
