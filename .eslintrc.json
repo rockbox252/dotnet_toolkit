@@ -20,14 +20,16 @@
     "no-unused-vars": "warn",
     "constructor-super": "warn",
     "valid-typeof": "warn",
-    "quotes": [2, "single"],
+    "quotes": "off",
     "semi": ["off"],
     "arrow-body-style": "off",
     "linebreak-style": 0,
     "comma-dangle": "off",
     "arrow-parens": "off",
     "class-methods-use-this": "off",
-    "object-curly-newline": "off"
+    "object-curly-newline": "off",
+    "import/prefer-default-export": "off",
+    "react/prop-types": "off"
   },
   "parser": "babel-eslint",
   "extends": "airbnb",

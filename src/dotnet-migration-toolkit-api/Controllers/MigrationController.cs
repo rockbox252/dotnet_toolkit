@@ -39,7 +39,7 @@ namespace dotnet_migration_toolkit.Controllers
 
         [HttpPost]
         [Route("analyze/excel")]
-        public async Task<IActionResult> GetHTMLReport([FromBody] PathModel pathModel)
+        public async Task<IActionResult> GetExcelReport([FromBody] PathModel pathModel)
         {
             var resString = await _migrationService.GetReport(pathModel.path, "excel");
             return Ok(resString);
@@ -47,7 +47,7 @@ namespace dotnet_migration_toolkit.Controllers
 
         [HttpPost]
         [Route("analyze/dgml")]
-        public async Task<IActionResult> GetHTMLReport([FromBody] PathModel pathModel)
+        public async Task<IActionResult> GetDGMLReport([FromBody] PathModel pathModel)
         {
             var resString = await _migrationService.GetReport(pathModel.path, "dgml");
             return Ok(resString);

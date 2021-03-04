@@ -1,13 +1,11 @@
 import React, { useRef } from 'react';
 import { Button, Grid, Paper, TextField } from '@material-ui/core';
+import { connect } from 'react-redux';
 
 import useStyles from '../utils/styles';
+import * as actions from '../actions';
 
-const handleClick = val => {
-  console.log(val);
-};
-
-const FileUpload = () => {
+const FileUpload = ({ generateReport }) => {
   const classes = useStyles();
   const inputRef = useRef();
   return (
@@ -29,7 +27,7 @@ const FileUpload = () => {
                 color="secondary"
                 variant="contained"
                 style={{ marginTop: 20 }}
-                onClick={() => handleClick(inputRef.current.value)}
+                onClick={() => generateReport(inputRef.current.value, 'html')}
               >
                 Analyze
               </Button>
@@ -42,4 +40,11 @@ const FileUpload = () => {
   );
 };
 
-export default FileUpload;
+const mapStateToProps = state => {
+  const { report } = state;
+  return {
+    report,
+  };
+};
+
+export default connect(mapStateToProps, actions)(FileUpload);
