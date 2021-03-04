@@ -5,9 +5,10 @@ import { connect } from 'react-redux';
 import useStyles from '../utils/styles';
 import * as actions from '../actions';
 
-const FileUpload = ({ generateReport }) => {
+const FileUpload = ({ generateReport, report }) => {
   const classes = useStyles();
   const inputRef = useRef();
+  console.log(report)
   return (
     <Grid container>
       <Grid item xs={3} />
@@ -41,7 +42,8 @@ const FileUpload = ({ generateReport }) => {
 };
 
 const mapStateToProps = state => {
-  const { report } = state;
+  const { app: { report } } = state;
+  console.log(report);
   return {
     report,
   };

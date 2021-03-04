@@ -1,16 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "4m8hCfsUY4zvYyTBfE0QyQn8AeuFB3BgKmuNAdU34OQB+FblPv7WaY1ti5axUwa1Q2SOwzS6bMdyUruvreSowQ==",
+  "dgSpecHash": "v39Gw/IDV08GaiB89NdM4j/UOw0Y3N8mjH21zBbaXTWYUoi0Q6yccfgLMrZ0yUMM6403t+SS6Gqu/BYTuQG+lQ==",
   "success": true,
-  "projectFilePath": "/Users/Preetham/Documents/ElectronJS/dotnet-migration-toolkit-ui/src/dotnet-migration-toolkit-api/dotnet-migration-toolkit.csproj",
+  "projectFilePath": "C:\\Users\\Hp\\Desktop\\Genpactofficialproject\\forkedproject\\dotnet-migration-toolkit-ui\\src\\dotnet-migration-toolkit-api\\dotnet-migration-toolkit.csproj",
   "expectedPackageFiles": [
-    "/Users/Preetham/.nuget/packages/microsoft.extensions.apidescription.server/3.0.0/microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
-    "/Users/Preetham/.nuget/packages/microsoft.openapi/1.2.3/microsoft.openapi.1.2.3.nupkg.sha512",
-    "/Users/Preetham/.nuget/packages/newtonsoft.json/12.0.3/newtonsoft.json.12.0.3.nupkg.sha512",
-    "/Users/Preetham/.nuget/packages/swashbuckle.aspnetcore/5.6.3/swashbuckle.aspnetcore.5.6.3.nupkg.sha512",
-    "/Users/Preetham/.nuget/packages/swashbuckle.aspnetcore.swagger/5.6.3/swashbuckle.aspnetcore.swagger.5.6.3.nupkg.sha512",
-    "/Users/Preetham/.nuget/packages/swashbuckle.aspnetcore.swaggergen/5.6.3/swashbuckle.aspnetcore.swaggergen.5.6.3.nupkg.sha512",
-    "/Users/Preetham/.nuget/packages/swashbuckle.aspnetcore.swaggerui/5.6.3/swashbuckle.aspnetcore.swaggerui.5.6.3.nupkg.sha512"
+    "C:\\Users\\Hp\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\Hp\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\Hp\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
+    "C:\\Users\\Hp\\.nuget\\packages\\swashbuckle.aspnetcore\\5.6.3\\swashbuckle.aspnetcore.5.6.3.nupkg.sha512",
+    "C:\\Users\\Hp\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\5.6.3\\swashbuckle.aspnetcore.swagger.5.6.3.nupkg.sha512",
+    "C:\\Users\\Hp\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\5.6.3\\swashbuckle.aspnetcore.swaggergen.5.6.3.nupkg.sha512",
+    "C:\\Users\\Hp\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\5.6.3\\swashbuckle.aspnetcore.swaggerui.5.6.3.nupkg.sha512"
   ],
   "logs": []
 }

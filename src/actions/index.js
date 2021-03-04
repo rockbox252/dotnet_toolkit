@@ -10,3 +10,5 @@ export const generateReport = (path, reportType) => async dispatch => {
   );
   dispatch({ type: GENERATE_REPORT, payload: { data, path } });
 };
+
+// https://localhost:44302
