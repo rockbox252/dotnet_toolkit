@@ -21,14 +21,39 @@ namespace dotnet_migration_toolkit.Controllers
         }
 
         #region Controller Methods
-        [HttpGet]
-        [Route("analyze")]
-        public async Task<IActionResult> Analyze()
+        [HttpPost]
+        [Route("analyze/json")]
+        public async Task<IActionResult> GetJSONReport([FromBody] PathModel pathModel)
         {
-           string path= "C:/Users/Hp/Desktop/demo/Spread.Net";
-           var resString =await _migrationService.GetJSON(path);
-           return Ok(resString);
+            var resString = await _migrationService.GetReport(pathModel.path, "json");
+            return Ok(resString);
         }
+
+        [HttpPost]
+        [Route("analyze/html")]
+        public async Task<IActionResult> GetHTMLReport([FromBody] PathModel pathModel)
+        {
+            var resString = await _migrationService.GetReport(pathModel.path, "html");
+            return Ok(resString);
+        }
+
+        [HttpPost]
+        [Route("analyze/excel")]
+        public async Task<IActionResult> GetHTMLReport([FromBody] PathModel pathModel)
+        {
+            var resString = await _migrationService.GetReport(pathModel.path, "excel");
+            return Ok(resString);
+        }
+
+        [HttpPost]
+        [Route("analyze/dgml")]
+        public async Task<IActionResult> GetHTMLReport([FromBody] PathModel pathModel)
+        {
+            var resString = await _migrationService.GetReport(pathModel.path, "dgml");
+            return Ok(resString);
+        }
+
+
         #endregion
     }
 }

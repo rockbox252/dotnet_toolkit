@@ -10,25 +10,23 @@ namespace dotnet_migration_toolkit.Services
 
     public interface IMigrationService
     {
-        public Task<string> GetJSON(string path);
+        public Task<string> GetReport(string path, string reportType);
     }
 
     public class MigrationService : IMigrationService
     {
         #region service methods
-        public async Task<string> GetJSON(string path)
+        public async Task<string> GetReport(string path, string reportType)
         {
-           if(File.Exists(@$"{Environment.CurrentDirectory}\ApiPortAnalysis.html"))
+            if (File.Exists(@$"{Environment.CurrentDirectory}\ApiPortAnalysis.{reportType}"))
             {
-                File.Delete(@$"{Environment.CurrentDirectory}\ApiPortAnalysis.html");
+                File.Delete(@$"{Environment.CurrentDirectory}\ApiPortAnalysis.{reportType}");
             }
 
             using (var process = new Process())
             {
                 process.StartInfo.FileName = @$"{Environment.CurrentDirectory}\ApiPort\ApiPort.exe"; // relative path. absolute path works too.
-                process.StartInfo.Arguments = $"analyze -r HTML -f {path}";
-                //process.StartInfo.FileName = @"cmd.exe";
-                //process.StartInfo.Arguments = @"/c dir";      // print the current working directory information
+                process.StartInfo.Arguments = $"analyze -r {reportType} -f {path}";
                 process.StartInfo.CreateNoWindow = true;
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.RedirectStandardOutput = true;
@@ -40,11 +38,11 @@ namespace dotnet_migration_toolkit.Services
                 process.Start();
                 process.BeginOutputReadLine();
                 process.BeginErrorReadLine();
-                var exited = process.WaitForExit(1000 * 30);     // (optional) wait up to 10 seconds
+                var exited = process.WaitForExit(1000 * 30);     // Waiting for the file generation for 30 seconds
                 Console.WriteLine($"exit {exited}");
             }
-            var response = File.ReadAllText(@$"{Environment.CurrentDirectory}\ApiPortAnalysis.html");
-            
+            var response = File.ReadAllText(@$"{Environment.CurrentDirectory}\ApiPortAnalysis.{reportType}");
+
             return response;
         }
         #endregion 
