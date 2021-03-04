@@ -37,6 +37,11 @@ const FileUpload = ({ generateReport, report }) => {
         </Paper>
       </Grid>
       <Grid item xs={4} />
+      <Grid item xs={12}>
+        <Paper elevation={3}>
+          <iframe srcDoc={report} title="report output" style={{ width: '100%', minHeight: '20vh' }} />
+        </Paper>
+      </Grid>
     </Grid>
   );
 };
