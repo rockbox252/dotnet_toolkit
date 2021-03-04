@@ -18,10 +18,23 @@ namespace dotnet_migration_toolkit.Services
         #region service methods
         public async Task<string> GetReport(string path, string reportType)
         {
-            if (File.Exists(@$"{Environment.CurrentDirectory}\ApiPortAnalysis.{reportType}"))
+            if (File.Exists(@$"{Environment.CurrentDirectory}\ApiPortAnalysis.xlsx"))
             {
-                File.Delete(@$"{Environment.CurrentDirectory}\ApiPortAnalysis.{reportType}");
+                File.Delete(@$"{Environment.CurrentDirectory}\ApiPortAnalysis.xlsx");
             }
+             if (File.Exists(@$"{Environment.CurrentDirectory}\ApiPortAnalysis.html"))
+            {
+                File.Delete(@$"{Environment.CurrentDirectory}\ApiPortAnalysis.html");
+            }
+             if (File.Exists(@$"{Environment.CurrentDirectory}\ApiPortAnalysis.json"))
+            {
+                File.Delete(@$"{Environment.CurrentDirectory}\ApiPortAnalysis.json");
+            }
+             if (File.Exists(@$"{Environment.CurrentDirectory}\ApiPortAnalysis.dgml"))
+            {
+                File.Delete(@$"{Environment.CurrentDirectory}\ApiPortAnalysis.dgml");
+            }
+            
 
             using (var process = new Process())
             {

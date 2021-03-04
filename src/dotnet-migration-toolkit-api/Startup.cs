@@ -1,5 +1,6 @@
 using dotnet_migration_toolkit.Services;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
@@ -33,6 +34,19 @@ namespace dotnet_migration_toolkit
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "dotnet_migration_toolkit", Version = "v1" });
             });
+
+            var corsBuilder = new CorsPolicyBuilder();
+            corsBuilder.AllowAnyHeader(); //To allow access with any headers
+            corsBuilder.AllowAnyMethod(); //Using HTTP Post or Get or other HTTP Methods
+            corsBuilder.AllowAnyOrigin(); //To allow access for applications of any origin
+            //To restrict the access from specific domain 
+            //corsBuilder.WithOrigins("https://domain:port"); 
+           // corsBuilder.AllowCredentials();
+            corsBuilder.WithExposedHeaders("content-desposition");
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", corsBuilder.Build());
+            });
             services.AddSingleton<IMigrationService, MigrationService>();
         }
 
@@ -45,6 +59,8 @@ namespace dotnet_migration_toolkit
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "dotnet_migration_toolkit v1"));
             }
+
+            app.UseCors("CorsPolicy");
 
             app.UseHttpsRedirection();
 
