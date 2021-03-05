@@ -11,10 +11,33 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    minHeight: '20vh',
     minWidth: '50vw',
     marginTop: 100,
     padding: 10,
+  },
+  browseContainer: {
+    minHeight: '100vh',
+  },
+  reportContainer: {
+    height: '100vh',
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10,
+  },
+  reportIFrame: {
+    height: '95%',
+    width: '95%',
+    border: '1px solid #b2bec3',
+    overflow: 'scroll',
+  },
+  footer: {
+    backgroundColor: '#0984e3',
+    padding: theme.spacing(6, 0),
+    marginTop: 20,
+    color: '#FFF',
+    borderTop: '5px solid #eb4d4b',
   },
 }));
 
