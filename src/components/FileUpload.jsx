@@ -21,7 +21,6 @@ const FileUpload = ({ generateReport, projectPath }) => {
                   variant="outlined"
                   inputRef={inputRef}
                   style={{ width: '100%' }}
-                  value={projectPath}
                 />
               </Grid>
               <Grid item xs={9} />

@@ -31,6 +31,7 @@ const useStyles = makeStyles(theme => ({
     width: '95%',
     border: '1px solid #b2bec3',
     overflow: 'scroll',
+    pointerEvents: 'none'
   },
   footer: {
     backgroundColor: '#0984e3',
