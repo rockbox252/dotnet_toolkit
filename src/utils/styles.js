@@ -31,13 +31,13 @@ const useStyles = makeStyles(theme => ({
     width: '95%',
     border: '1px solid #b2bec3',
     overflow: 'scroll',
-    pointerEvents: 'none'
+    pointerEvents: 'none',
   },
   footer: {
     backgroundColor: '#0984e3',
     padding: theme.spacing(6, 0),
     marginTop: 20,
-    color: '#FFF',
+    color: '#fff',
     borderTop: '5px solid #eb4d4b',
   },
 }));
