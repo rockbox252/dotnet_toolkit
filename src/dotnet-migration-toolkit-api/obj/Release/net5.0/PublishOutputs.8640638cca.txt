@@ -1,0 +1,14 @@
+/Users/Preetham/Documents/publish/ApiPort/ApiPort.dll.config
+/Users/Preetham/Documents/publish/ApiPort/ApiPort.deps.json
+/Users/Preetham/Documents/publish/ApiPort/ApiPort.runtimeconfig.json
+/Users/Preetham/Documents/publish/appsettings.Development.json
+/Users/Preetham/Documents/publish/appsettings.json
+/Users/Preetham/Documents/publish/dotnet-migration-toolkit.dll
+/Users/Preetham/Documents/publish/dotnet-migration-toolkit.deps.json
+/Users/Preetham/Documents/publish/dotnet-migration-toolkit.runtimeconfig.json
+/Users/Preetham/Documents/publish/dotnet-migration-toolkit.pdb
+/Users/Preetham/Documents/publish/Microsoft.OpenApi.dll
+/Users/Preetham/Documents/publish/Newtonsoft.Json.dll
+/Users/Preetham/Documents/publish/Swashbuckle.AspNetCore.Swagger.dll
+/Users/Preetham/Documents/publish/Swashbuckle.AspNetCore.SwaggerGen.dll
+/Users/Preetham/Documents/publish/Swashbuckle.AspNetCore.SwaggerUI.dll

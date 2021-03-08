@@ -29,7 +29,7 @@ const FileUpload = ({ generateReport, projectPath }) => {
                   color="secondary"
                   variant="contained"
                   style={{ marginTop: 20 }}
-                  onClick={() => generateReport(inputRef.current.value, 'html')}
+                  onClick={() => generateReport(inputRef.current.value, 'json')}
                   component={Link}
                   to="/report"
                 >

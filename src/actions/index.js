@@ -8,7 +8,7 @@ export const generateReport = (path, reportType) => async dispatch => {
       path,
     }
   );
-  dispatch({ type: GENERATE_REPORT, payload: { data, path } });
+  dispatch({ type: GENERATE_REPORT, payload: { data, path, reportType } });
 };
 
 // https://localhost:44302

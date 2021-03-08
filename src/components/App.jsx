@@ -5,6 +5,7 @@ import Header from './Header';
 import Footer from './Footer';
 import FileUpload from './FileUpload';
 import Report from './Report';
+import IFrame from './IFrame';
 
 const App = () => {
   return (
@@ -16,6 +17,9 @@ const App = () => {
         </Route>
         <Route exact path="/report">
           <Report />
+        </Route>
+        <Route exact path="/report/html">
+          <IFrame />
         </Route>
       </BrowserRouter>
       <Footer />
