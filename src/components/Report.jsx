@@ -105,7 +105,7 @@ const Report = ({ projectPath, generateReport, jsonReport }) => {
   const classes = useStyles();
 
   const [value, setValue] = useState(0);
-  const projectName = projectPath?.split('/').pop();
+  const projectName = projectPath?.split('\\').pop();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -115,7 +115,7 @@ const Report = ({ projectPath, generateReport, jsonReport }) => {
     (jsonReport && getMissingAssemblyRows(jsonReport.MissingDependencies)) ||
     [];
 
-  return !jsonReport ? (
+  return jsonReport ? (
     <>
       <Button component={Link} to="/" color="secondary">
         Go Back &larr;
@@ -190,10 +190,11 @@ const Report = ({ projectPath, generateReport, jsonReport }) => {
                 <Grid item xs={12}>
                   <Typography variant="body1" gutter>
                     <span style={{ color: '#eb4d4b' }}>Target Platforms </span>
+                    <br />
                     {jsonReport?.Targets[0]}
-                    <Divider orientation="vertical" />
+                    <br />
                     {jsonReport?.Targets[1]}
-                    <Divider orientation="vertical" />
+                    <br />
                     {jsonReport?.Targets[2]}
                   </Typography>
                   <Divider style={{ margin: '10px 10px' }} />
