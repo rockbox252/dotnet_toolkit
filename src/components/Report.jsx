@@ -282,6 +282,7 @@ const Report = ({ projectPath, generateReport, jsonReport }) => {
       <Typography color="secondary" variant="h5" style={{ display: 'block' }}>
         Analyzing
       </Typography>
+      <br />
       <div className="lds-facebook">
         <div />
         <div />

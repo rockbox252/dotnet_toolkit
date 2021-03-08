@@ -2,14 +2,14 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 
-import { Paper, Container, Button } from '@material-ui/core';
+import { Paper, Typography, Button } from '@material-ui/core';
 
 import { connect } from 'react-redux';
 import useStyles from '../utils/styles';
 
 const IFrame = ({ report }) => {
   const classes = useStyles();
-  return (
+  return report ? (
     <>
       <Button component={Link} to="/report" color="secondary">
         Go Back &larr;
@@ -22,6 +22,18 @@ const IFrame = ({ report }) => {
         />
       </Paper>
     </>
+  ) : (
+    <Paper className="loader">
+      <Typography color="secondary" variant="h5" style={{ display: 'block' }}>
+        Generating Report
+      </Typography>
+      <br />
+      <div className="lds-facebook">
+        <div />
+        <div />
+        <div />
+      </div>
+    </Paper>
   );
 };
 
