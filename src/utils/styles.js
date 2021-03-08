@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
     minHeight: '100vh',
   },
   reportContainer: {
-    height: '100vh',
+    height: '90vh',
     width: '100%',
     display: 'flex',
     flexWrap: 'wrap',
@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
   },
   iFrameContainer: {
     height: '150vh',
-    width: '100vw',
+    width: '98.5vw',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',

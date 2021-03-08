@@ -22,7 +22,8 @@ import {
   ListItemAvatar,
   Avatar,
   ListItemText,
-  Divider
+  Divider,
+  Grid,
 } from '@material-ui/core';
 
 import useStyles from '../utils/styles';
@@ -85,17 +86,17 @@ function a11yProps(index) {
 const generateList = unresolvedAssemblies => {
   return unresolvedAssemblies.map(ua => {
     return (
-    <>
-      <ListItem key={ua}>
-        <ListItemAvatar>
-          <Avatar>
-            <DLLIcon color="secondary" />
-          </Avatar>
-        </ListItemAvatar>
-        <ListItemText primary={ua} />
-      </ListItem>
-      <Divider style={{ margin: '20px 0px' }} />
-    </>
+      <>
+        <ListItem key={ua}>
+          <ListItemAvatar>
+            <Avatar>
+              <DLLIcon color="secondary" />
+            </Avatar>
+          </ListItemAvatar>
+          <ListItemText primary={ua} />
+        </ListItem>
+        <Divider style={{ margin: '20px 0px' }} />
+      </>
     );
   });
 };
@@ -104,6 +105,7 @@ const Report = ({ projectPath, generateReport, jsonReport }) => {
   const classes = useStyles();
 
   const [value, setValue] = useState(0);
+  const projectName = projectPath?.split('/').pop();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -113,7 +115,7 @@ const Report = ({ projectPath, generateReport, jsonReport }) => {
     (jsonReport && getMissingAssemblyRows(jsonReport.MissingDependencies)) ||
     [];
 
-  return jsonReport ? (
+  return !jsonReport ? (
     <>
       <Button component={Link} to="/" color="secondary">
         Go Back &larr;
@@ -144,7 +146,60 @@ const Report = ({ projectPath, generateReport, jsonReport }) => {
           }}
         >
           <TabPanel value={value} index={0}>
-            Basic Info
+            <Paper style={{ padding: 20 }}>
+              <Grid container>
+                <Grid item xs={12}>
+                  <Typography variant="body1" gutter>
+                    <span style={{ color: '#eb4d4b' }}>Submission Id: </span>{' '}
+                    {jsonReport?.SubmissionId}
+                  </Typography>
+                  <Divider style={{ margin: '10px 10px' }} />
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography variant="body1" gutter>
+                    <span style={{ color: '#eb4d4b' }}>Application Name: </span>
+                    {jsonReport?.ApplicationName || projectName}
+                  </Typography>
+                  <Divider style={{ margin: '10px 10px' }} />
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography variant="body1" gutter>
+                    <span style={{ color: '#eb4d4b' }}>Last Updated: </span>
+                    {jsonReport?.CatalogLastUpdated}
+                  </Typography>
+                  <Divider style={{ margin: '10px 10px' }} />
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography variant="body1" gutter>
+                    <span style={{ color: '#eb4d4b' }}>
+                      Total Missing Dependencies:{' '}
+                    </span>
+                    {jsonReport?.MissingDependencies.length}
+                  </Typography>
+                  <Divider style={{ margin: '10px 10px' }} />
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography variant="body1" gutter>
+                    <span style={{ color: '#eb4d4b' }}>
+                      Total Unresolved Assemblies:{' '}
+                    </span>
+                    {jsonReport?.UnresolvedUserAssemblies.length}
+                  </Typography>
+                  <Divider style={{ margin: '10px 10px' }} />
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography variant="body1" gutter>
+                    <span style={{ color: '#eb4d4b' }}>Target Platforms </span>
+                    {jsonReport?.Targets[0]}
+                    <Divider orientation="vertical" />
+                    {jsonReport?.Targets[1]}
+                    <Divider orientation="vertical" />
+                    {jsonReport?.Targets[2]}
+                  </Typography>
+                  <Divider style={{ margin: '10px 10px' }} />
+                </Grid>
+              </Grid>
+            </Paper>
           </TabPanel>
           <TabPanel value={value} index={1}>
             <TableContainer component={Paper}>
@@ -213,7 +268,9 @@ const Report = ({ projectPath, generateReport, jsonReport }) => {
           </TabPanel>
           <TabPanel value={value} index={2}>
             <List>
-              {jsonReport ? generateList(jsonReport.UnresolvedUserAssemblies) : null}
+              {jsonReport
+                ? generateList(jsonReport.UnresolvedUserAssemblies)
+                : null}
             </List>
           </TabPanel>
         </div>
@@ -234,6 +291,7 @@ const Report = ({ projectPath, generateReport, jsonReport }) => {
 };
 
 const mapStateToProps = state => {
+  debugger;
   const {
     app: { projectPath, jsonReport },
   } = state;
