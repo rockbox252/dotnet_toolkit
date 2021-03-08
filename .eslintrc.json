@@ -35,7 +35,8 @@
     "curly": "off",
     "react/jsx-props-no-spreading": "off",
     "no-mixed-operators": "off",
-    "react/jsx-indent": "off"
+    "react/jsx-indent": "warn",
+    "operator-linebreak": "off"
   },
   "parser": "babel-eslint",
   "extends": "airbnb",

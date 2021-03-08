@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import DLLIcon from '@material-ui/icons/PlayForWork';
+import '../utils/styles.css';
 import {
   Paper,
   Button,
@@ -15,6 +17,11 @@ import {
   TableHead,
   TableRow,
   Table,
+  List,
+  ListItem,
+  ListItemAvatar,
+  Avatar,
+  ListItemText,
 } from '@material-ui/core';
 
 import useStyles from '../utils/styles';
@@ -38,7 +45,6 @@ function createData(
 
 const getMissingAssemblyRows = missingAssemblies => {
   return missingAssemblies.map(assembly => {
-    console.log(assembly);
     return createData(
       assembly.DefinedInAssemblyIdentity,
       assembly.MemberDocId,
@@ -75,6 +81,21 @@ function a11yProps(index) {
   };
 }
 
+const generateList = unresolvedAssemblies => {
+  return unresolvedAssemblies.map(ua => {
+    return (
+      <ListItem key={ua}>
+        <ListItemAvatar>
+          <Avatar>
+            <DLLIcon />
+          </Avatar>
+        </ListItemAvatar>
+        <ListItemText primary={ua} />
+      </ListItem>
+    );
+  });
+};
+
 const Report = ({ projectPath, generateReport, jsonReport }) => {
   const classes = useStyles();
 
@@ -84,11 +105,11 @@ const Report = ({ projectPath, generateReport, jsonReport }) => {
     setValue(newValue);
   };
 
-  const missingAssemblyRows = jsonReport && getMissingAssemblyRows(
-    jsonReport.MissingDependencies
-  ) || [];
+  const missingAssemblyRows =
+    (jsonReport && getMissingAssemblyRows(jsonReport.MissingDependencies)) ||
+    [];
 
-  return (
+  return jsonReport ? (
     <>
       <Button component={Link} to="/" color="secondary">
         Go Back &larr;
@@ -110,7 +131,14 @@ const Report = ({ projectPath, generateReport, jsonReport }) => {
             <Tab label="Unresolved Assemblies" {...a11yProps(2)} />
           </Tabs>
         </AppBar>
-        <div style={{ minHeight: '60%', maxHeight: '60%', width: '100%', overflowY: 'scroll' }}>
+        <div
+          style={{
+            minHeight: '60%',
+            maxHeight: '60%',
+            width: '100%',
+            overflowY: 'scroll',
+          }}
+        >
           <TabPanel value={value} index={0}>
             Basic Info
           </TabPanel>
@@ -136,14 +164,41 @@ const Report = ({ projectPath, generateReport, jsonReport }) => {
                 <TableBody>
                   {missingAssemblyRows.map(row => (
                     <TableRow key={row.definedInAssemblyIdentity}>
-                      <TableCell component="th" scope="row" style={{ wordBreak: 'break-word', textAlign: 'left' }}>
+                      <TableCell
+                        component="th"
+                        scope="row"
+                        style={{ wordBreak: 'break-word', textAlign: 'left' }}
+                      >
                         {row.definedInAssemblyIdentity}
                       </TableCell>
-                      <TableCell align="right" style={{ maxWidth: 100, wordBreak: 'break-word', textAlign: 'left' }}>{row.memberDocID}</TableCell>
-                      <TableCell align="right" style={{ maxWidth: 100, wordBreak: 'break-word', textAlign: 'left' }}>
+                      <TableCell
+                        align="right"
+                        style={{
+                          maxWidth: 100,
+                          wordBreak: 'break-word',
+                          textAlign: 'left',
+                        }}
+                      >
+                        {row.memberDocID}
+                      </TableCell>
+                      <TableCell
+                        align="right"
+                        style={{
+                          maxWidth: 100,
+                          wordBreak: 'break-word',
+                          textAlign: 'left',
+                        }}
+                      >
                         {row.recommendedChanges}
                       </TableCell>
-                      <TableCell align="right" style={{ maxWidth: 100, wordBreak: 'break-word', textAlign: 'left' }}>
+                      <TableCell
+                        align="right"
+                        style={{
+                          maxWidth: 100,
+                          wordBreak: 'break-word',
+                          textAlign: 'left',
+                        }}
+                      >
                         {row.sourceCompatibleChanges}
                       </TableCell>
                     </TableRow>
@@ -153,11 +208,24 @@ const Report = ({ projectPath, generateReport, jsonReport }) => {
             </TableContainer>
           </TabPanel>
           <TabPanel value={value} index={2}>
-            Item Three
+            <List>
+              {jsonReport && generateList(jsonReport.UnresolvedAssemblies)}
+            </List>
           </TabPanel>
         </div>
       </Paper>
     </>
+  ) : (
+    <Paper className="loader">
+      <Typography color="secondary" variant="h5" style={{ display: 'block' }}>
+        Analyzing
+      </Typography>
+      <div className="lds-facebook">
+        <div />
+        <div />
+        <div />
+      </div>
+    </Paper>
   );
 };
 
