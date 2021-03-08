@@ -127,3 +127,4 @@ C:\Users\Hp\Desktop\Genpactofficialproject\forkedproject\dotnet-migration-toolki
 C:\Users\Hp\Desktop\Genpactofficialproject\forkedproject\dotnet-migration-toolkit-ui\src\dotnet-migration-toolkit-api\obj\Debug\net5.0\dotnet-migration-toolkit.pdb
 C:\Users\Hp\Desktop\Genpactofficialproject\forkedproject\dotnet-migration-toolkit-ui\src\dotnet-migration-toolkit-api\obj\Debug\net5.0\dotnet-migration-toolkit.genruntimeconfig.cache
 C:\Users\Hp\Desktop\Genpactofficialproject\forkedproject\dotnet-migration-toolkit-ui\src\dotnet-migration-toolkit-api\obj\Debug\net5.0\dotnet-migration-toolkit.csprojAssemblyReference.cache
+C:\Users\Hp\Desktop\Genpactofficialproject\forkedproject\dotnet-migration-toolkit-ui\src\dotnet-migration-toolkit-api\bin\Debug\net5.0\ApiPortAnalysis.json

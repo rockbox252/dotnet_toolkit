@@ -38,11 +38,12 @@ function createData(
 
 const getMissingAssemblyRows = missingAssemblies => {
   return missingAssemblies.map(assembly => {
+    console.log(assembly);
     return createData(
-      assembly.definedInAssemblyIdentity,
-      assembly.memberDocID,
-      assembly.recommendedChanges,
-      assembly.sourceCompatibleChanges
+      assembly.DefinedInAssemblyIdentity,
+      assembly.MemberDocId,
+      assembly.RecommendedChanges,
+      assembly.SourceCompatibleChanges
     );
   });
 };
@@ -83,9 +84,9 @@ const Report = ({ projectPath, generateReport, jsonReport }) => {
     setValue(newValue);
   };
 
-  const missingAssemblyRows = getMissingAssemblyRows(
+  const missingAssemblyRows = jsonReport && getMissingAssemblyRows(
     jsonReport.MissingDependencies
-  );
+  ) || [];
 
   return (
     <>
@@ -109,7 +110,7 @@ const Report = ({ projectPath, generateReport, jsonReport }) => {
             <Tab label="Unresolved Assemblies" {...a11yProps(2)} />
           </Tabs>
         </AppBar>
-        <div style={{ minHeight: '80%', width: '100%' }}>
+        <div style={{ minHeight: '60%', maxHeight: '60%', width: '100%', overflowY: 'scroll' }}>
           <TabPanel value={value} index={0}>
             Basic Info
           </TabPanel>
@@ -119,30 +120,30 @@ const Report = ({ projectPath, generateReport, jsonReport }) => {
                 <TableHead style={{ backgroundColor: '#3a9ce8' }}>
                   <TableRow>
                     <TableCell style={{ color: '#fff' }}>
-                      Dessert (100g serving)
+                      Package Name
                     </TableCell>
                     <TableCell style={{ color: '#fff' }} align="right">
-                      Calories
+                      Class Name
                     </TableCell>
                     <TableCell style={{ color: '#fff' }} align="right">
-                      Fat&nbsp;(g)
+                      Recommended Changes
                     </TableCell>
                     <TableCell align="right" style={{ color: '#fff' }}>
-                      Carbs&nbsp;(g)
+                      Source Compatible Changes
                     </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {missingAssemblyRows.map(row => (
                     <TableRow key={row.definedInAssemblyIdentity}>
-                      <TableCell component="th" scope="row">
+                      <TableCell component="th" scope="row" style={{ wordBreak: 'break-word', textAlign: 'left' }}>
                         {row.definedInAssemblyIdentity}
                       </TableCell>
-                      <TableCell align="right">{row.memberDocID}</TableCell>
-                      <TableCell align="right">
+                      <TableCell align="right" style={{ maxWidth: 100, wordBreak: 'break-word', textAlign: 'left' }}>{row.memberDocID}</TableCell>
+                      <TableCell align="right" style={{ maxWidth: 100, wordBreak: 'break-word', textAlign: 'left' }}>
                         {row.recommendedChanges}
                       </TableCell>
-                      <TableCell align="right">
+                      <TableCell align="right" style={{ maxWidth: 100, wordBreak: 'break-word', textAlign: 'left' }}>
                         {row.sourceCompatibleChanges}
                       </TableCell>
                     </TableRow>
@@ -164,7 +165,6 @@ const mapStateToProps = state => {
   const {
     app: { projectPath, jsonReport },
   } = state;
-
   return {
     projectPath,
     jsonReport,

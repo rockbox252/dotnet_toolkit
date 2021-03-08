@@ -33,7 +33,9 @@
     "no-debugger": "off",
     "nonblock-statement-body-position": "off",
     "curly": "off",
-    "react/jsx-props-no-spreading": "off"
+    "react/jsx-props-no-spreading": "off",
+    "no-mixed-operators": "off",
+    "react/jsx-indent": "off"
   },
   "parser": "babel-eslint",
   "extends": "airbnb",
