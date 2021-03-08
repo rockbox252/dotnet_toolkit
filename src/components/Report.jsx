@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import DLLIcon from '@material-ui/icons/PlayForWork';
-import '../utils/styles.css';
+import '../utils/loader.css';
 import {
   Paper,
   Button,
@@ -22,6 +22,7 @@ import {
   ListItemAvatar,
   Avatar,
   ListItemText,
+  Divider
 } from '@material-ui/core';
 
 import useStyles from '../utils/styles';
@@ -84,14 +85,17 @@ function a11yProps(index) {
 const generateList = unresolvedAssemblies => {
   return unresolvedAssemblies.map(ua => {
     return (
+    <>
       <ListItem key={ua}>
         <ListItemAvatar>
           <Avatar>
-            <DLLIcon />
+            <DLLIcon color="secondary" />
           </Avatar>
         </ListItemAvatar>
         <ListItemText primary={ua} />
       </ListItem>
+      <Divider style={{ margin: '20px 0px' }} />
+    </>
     );
   });
 };
@@ -209,7 +213,7 @@ const Report = ({ projectPath, generateReport, jsonReport }) => {
           </TabPanel>
           <TabPanel value={value} index={2}>
             <List>
-              {jsonReport && generateList(jsonReport.UnresolvedAssemblies)}
+              {jsonReport ? generateList(jsonReport.UnresolvedUserAssemblies) : null}
             </List>
           </TabPanel>
         </div>
