@@ -40,10 +40,9 @@ const useStyles = makeStyles(theme => ({
     pointerEvents: 'none',
   },
   footer: {
-    backgroundColor: '#0984e3',
+    backgroundColor: '#dfe6e9',
     padding: theme.spacing(6, 0),
-    marginTop: 20,
-    color: '#fff',
+    color: '#eb4d4b',
     borderTop: '5px solid #eb4d4b',
   },
 }));

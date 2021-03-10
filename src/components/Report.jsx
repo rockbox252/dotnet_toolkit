@@ -43,8 +43,6 @@ function createData(
   };
 }
 
-// const rows = [createData('Frozen yoghurt', 159, 6.0, 24, 4.0)];
-
 const getMissingAssemblyRows = missingAssemblies => {
   return missingAssemblies.map(assembly => {
     return createData(
@@ -115,7 +113,7 @@ const Report = ({ projectPath, generateReport, jsonReport }) => {
     (jsonReport && getMissingAssemblyRows(jsonReport.MissingDependencies)) ||
     [];
 
-  return jsonReport ? (
+  return !jsonReport ? (
     <>
       <Button component={Link} to="/" color="secondary">
         Go Back &larr;
@@ -137,81 +135,87 @@ const Report = ({ projectPath, generateReport, jsonReport }) => {
             <Tab label="Unresolved Assemblies" {...a11yProps(2)} />
           </Tabs>
         </AppBar>
+
+        <TabPanel value={value} index={0}>
+          <Paper
+            style={{ padding: 20, width: '80vw' }}
+            elevation={0}
+            variant="outlined"
+          >
+            <Grid container>
+              <Grid item xs={12}>
+                <Typography variant="body1" gutter>
+                  <span style={{ color: '#eb4d4b' }}>Submission Id: </span>{' '}
+                  {jsonReport?.SubmissionId}
+                </Typography>
+                <Divider style={{ margin: '10px 10px' }} />
+              </Grid>
+              <Grid item xs={12}>
+                <Typography variant="body1" gutter>
+                  <span style={{ color: '#eb4d4b' }}>Application Name: </span>
+                  {jsonReport?.ApplicationName || projectName}
+                </Typography>
+                <Divider style={{ margin: '10px 10px' }} />
+              </Grid>
+              <Grid item xs={12}>
+                <Typography variant="body1" gutter>
+                  <span style={{ color: '#eb4d4b' }}>Last Updated: </span>
+                  {jsonReport?.CatalogLastUpdated}
+                </Typography>
+                <Divider style={{ margin: '10px 10px' }} />
+              </Grid>
+              <Grid item xs={12}>
+                <Typography variant="body1" gutter>
+                  <span style={{ color: '#eb4d4b' }}>
+                    Total Missing Dependencies:{' '}
+                  </span>
+                  {jsonReport?.MissingDependencies.length}
+                </Typography>
+                <Divider style={{ margin: '10px 10px' }} />
+              </Grid>
+              <Grid item xs={12}>
+                <Typography variant="body1" gutter>
+                  <span style={{ color: '#eb4d4b' }}>
+                    Total Unresolved Assemblies:{' '}
+                  </span>
+                  {jsonReport?.UnresolvedUserAssemblies.length}
+                </Typography>
+                <Divider style={{ margin: '10px 10px' }} />
+              </Grid>
+              <Grid item xs={12}>
+                <Typography variant="body1" gutter>
+                  <span style={{ color: '#eb4d4b' }}>Target Platforms </span>
+                  <br />
+                  {jsonReport?.Targets[0]}
+                  <br />
+                  {jsonReport?.Targets[1]}
+                  <br />
+                  {jsonReport?.Targets[2]}
+                </Typography>
+                <Divider style={{ margin: '10px 10px' }} />
+              </Grid>
+            </Grid>
+          </Paper>
+        </TabPanel>
         <div
           style={{
             minHeight: '60%',
             maxHeight: '60%',
             width: '100%',
             overflowY: 'scroll',
+            marginTop: '-150px',
           }}
         >
-          <TabPanel value={value} index={0}>
-            <Paper style={{ padding: 20 }}>
-              <Grid container>
-                <Grid item xs={12}>
-                  <Typography variant="body1" gutter>
-                    <span style={{ color: '#eb4d4b' }}>Submission Id: </span>{' '}
-                    {jsonReport?.SubmissionId}
-                  </Typography>
-                  <Divider style={{ margin: '10px 10px' }} />
-                </Grid>
-                <Grid item xs={12}>
-                  <Typography variant="body1" gutter>
-                    <span style={{ color: '#eb4d4b' }}>Application Name: </span>
-                    {jsonReport?.ApplicationName || projectName}
-                  </Typography>
-                  <Divider style={{ margin: '10px 10px' }} />
-                </Grid>
-                <Grid item xs={12}>
-                  <Typography variant="body1" gutter>
-                    <span style={{ color: '#eb4d4b' }}>Last Updated: </span>
-                    {jsonReport?.CatalogLastUpdated}
-                  </Typography>
-                  <Divider style={{ margin: '10px 10px' }} />
-                </Grid>
-                <Grid item xs={12}>
-                  <Typography variant="body1" gutter>
-                    <span style={{ color: '#eb4d4b' }}>
-                      Total Missing Dependencies:{' '}
-                    </span>
-                    {jsonReport?.MissingDependencies.length}
-                  </Typography>
-                  <Divider style={{ margin: '10px 10px' }} />
-                </Grid>
-                <Grid item xs={12}>
-                  <Typography variant="body1" gutter>
-                    <span style={{ color: '#eb4d4b' }}>
-                      Total Unresolved Assemblies:{' '}
-                    </span>
-                    {jsonReport?.UnresolvedUserAssemblies.length}
-                  </Typography>
-                  <Divider style={{ margin: '10px 10px' }} />
-                </Grid>
-                <Grid item xs={12}>
-                  <Typography variant="body1" gutter>
-                    <span style={{ color: '#eb4d4b' }}>Target Platforms </span>
-                    <br />
-                    {jsonReport?.Targets[0]}
-                    <br />
-                    {jsonReport?.Targets[1]}
-                    <br />
-                    {jsonReport?.Targets[2]}
-                  </Typography>
-                  <Divider style={{ margin: '10px 10px' }} />
-                </Grid>
-              </Grid>
-            </Paper>
-          </TabPanel>
           <TabPanel value={value} index={1}>
             <TableContainer component={Paper}>
               <Table className={classes.table} aria-label="simple table">
                 <TableHead style={{ backgroundColor: '#3a9ce8' }}>
                   <TableRow>
                     <TableCell style={{ color: '#fff' }}>
-                      Package Name
+                      Assembly Name
                     </TableCell>
                     <TableCell style={{ color: '#fff' }} align="right">
-                      Class Name
+                      Member
                     </TableCell>
                     <TableCell style={{ color: '#fff' }} align="right">
                       Recommended Changes
@@ -269,9 +273,21 @@ const Report = ({ projectPath, generateReport, jsonReport }) => {
           </TabPanel>
           <TabPanel value={value} index={2}>
             <List>
-              {jsonReport
-                ? generateList(jsonReport.UnresolvedUserAssemblies)
-                : null}
+              {jsonReport ? (
+                generateList(jsonReport.UnresolvedUserAssemblies)
+              ) : (
+                <>
+                  <ListItem>
+                    <ListItemAvatar>
+                      <Avatar>
+                        <DLLIcon color="secondary" />
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText primary="test" />
+                  </ListItem>
+                  <Divider style={{ margin: '20px 0px' }} />
+                </>
+              )}
             </List>
           </TabPanel>
         </div>
@@ -293,7 +309,6 @@ const Report = ({ projectPath, generateReport, jsonReport }) => {
 };
 
 const mapStateToProps = state => {
-  debugger;
   const {
     app: { projectPath, jsonReport },
   } = state;
