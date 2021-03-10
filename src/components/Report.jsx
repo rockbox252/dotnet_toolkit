@@ -113,7 +113,7 @@ const Report = ({ projectPath, generateReport, jsonReport }) => {
     (jsonReport && getMissingAssemblyRows(jsonReport.MissingDependencies)) ||
     [];
 
-  return !jsonReport ? (
+  return jsonReport ? (
     <>
       <Button component={Link} to="/" color="secondary">
         Go Back &larr;
