@@ -61,26 +61,29 @@ namespace dotnet_migration_toolkit.Services
 
             if (reportType.ToLower() == "json")
             {
-                var solFilePath = Directory.GetFiles(path, "*.sln");
-                if (solFilePath.Length > 0)
+                if (!path.Contains("dll"))
                 {
-                    var solFileLines = File.ReadAllLines(@$"{solFilePath[0]}");
-                    var projList = new ArrayList();
-                    foreach (var line in solFileLines)
+                    var solFilePath = Directory.GetFiles(path, "*.sln");
+                    if (solFilePath.Length > 0)
                     {
-                        if (line.Contains("csproj"))
+                        var solFileLines = File.ReadAllLines(@$"{solFilePath[0]}");
+                        var projList = new ArrayList();
+                        foreach (var line in solFileLines)
                         {
-                            var projName = line.Split("\\")[1].Split(",")[0];
-                            projList.Add(projName);
+                            if (line.Contains("csproj"))
+                            {
+                                var projName = line.Split("\\")[1].Split(",")[0];
+                                projList.Add(projName);
+                            }
                         }
-                    }
 
-                    JArray array = new JArray();
-                    for (int i = 0; i < projList.Count; i++)
-                    {
-                        array.Add(projList[i]);
+                        JArray array = new JArray();
+                        for (int i = 0; i < projList.Count; i++)
+                        {
+                            array.Add(projList[i]);
+                        }
+                        dataObject["SubProjects"] = array;
                     }
-                    dataObject["SubProjects"] = array;
                 }
             }
 

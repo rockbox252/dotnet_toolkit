@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import DLLIcon from '@material-ui/icons/PlayForWork';
+import SubProject from '@material-ui/icons/AccountTree';
 import '../utils/loader.css';
 import {
   Paper,
@@ -81,7 +82,7 @@ function a11yProps(index) {
   };
 }
 
-const generateList = unresolvedAssemblies => {
+const generateList = (unresolvedAssemblies, margin = 0) => {
   return unresolvedAssemblies.map(ua => {
     return (
       <>
@@ -93,7 +94,7 @@ const generateList = unresolvedAssemblies => {
           </ListItemAvatar>
           <ListItemText primary={ua} />
         </ListItem>
-        <Divider style={{ margin: '20px 0px' }} />
+        <Divider style={{ marginTop: margin, marginBottom: margin }} />
       </>
     );
   });
@@ -137,7 +138,15 @@ const Report = ({ projectPath, generateReport, jsonReport }) => {
             <Tab label="Unresolved Assemblies" {...a11yProps(2)} />
           </Tabs>
         </AppBar>
-
+        <div
+          style={{
+            minHeight: '60%',
+            maxHeight: '70%',
+            width: '100%',
+            overflowY: 'scroll',
+            marginTop: '-150px',
+          }}
+        >
         <TabPanel value={value} index={0}>
           <Paper
             style={{ padding: 20, width: '80vw' }}
@@ -165,7 +174,6 @@ const Report = ({ projectPath, generateReport, jsonReport }) => {
                     <span style={{ color: '#eb4d4b' }}>Sub Projects</span>
                     <List>{jsonReport ? generateList(subProjects) : null}</List>
                   </Typography>
-                  <Divider style={{ margin: '10px 10px' }} />
                 </Grid>
               ) : null}
               <Grid item xs={12}>
@@ -208,15 +216,6 @@ const Report = ({ projectPath, generateReport, jsonReport }) => {
             </Grid>
           </Paper>
         </TabPanel>
-        <div
-          style={{
-            minHeight: '60%',
-            maxHeight: '60%',
-            width: '100%',
-            overflowY: 'scroll',
-            marginTop: '-150px',
-          }}
-        >
           <TabPanel value={value} index={1}>
             <TableContainer component={Paper}>
               <Table className={classes.table} aria-label="simple table">
@@ -285,7 +284,7 @@ const Report = ({ projectPath, generateReport, jsonReport }) => {
           <TabPanel value={value} index={2}>
             <List>
               {jsonReport
-                ? generateList(jsonReport.UnresolvedUserAssemblies)
+                ? generateList(jsonReport.UnresolvedUserAssemblies, 20)
                 : null}
             </List>
           </TabPanel>

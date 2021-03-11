@@ -3,16 +3,18 @@ const path = require('path');
 const url = require('url');
 
 let mainWindow;
-
+app.commandLine.appendSwitch('ignore-certificate-errors', 'true');
+app.commandLine.appendSwitch('allow-insecure-localhost', 'true');
 const createWindow = () => {
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
       nodeIntegration: true,
+      webSecurity: false,
+      allowRunningInsecureContent: true,
     },
   });
-
   mainWindow.loadURL(
     process.env.ELECTRON_START_URL ||
       url.format({
