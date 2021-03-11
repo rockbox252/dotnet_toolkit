@@ -89,7 +89,11 @@ const generateList = (unresolvedAssemblies, margin = 0) => {
         <ListItem key={ua}>
           <ListItemAvatar>
             <Avatar>
-              <DLLIcon color="secondary" />
+              {margin ? (
+                <DLLIcon color="secondary" />
+              ) : (
+                <SubProject color="secondary" />
+              )}
             </Avatar>
           </ListItemAvatar>
           <ListItemText primary={ua} />
@@ -147,75 +151,77 @@ const Report = ({ projectPath, generateReport, jsonReport }) => {
             marginTop: '-150px',
           }}
         >
-        <TabPanel value={value} index={0}>
-          <Paper
-            style={{ padding: 20, width: '80vw' }}
-            elevation={0}
-            variant="outlined"
-          >
-            <Grid container>
-              <Grid item xs={12}>
-                <Typography variant="body1" gutter>
-                  <span style={{ color: '#eb4d4b' }}>Submission Id: </span>{' '}
-                  {jsonReport?.SubmissionId}
-                </Typography>
-                <Divider style={{ margin: '10px 10px' }} />
-              </Grid>
-              <Grid item xs={12}>
-                <Typography variant="body1" gutter>
-                  <span style={{ color: '#eb4d4b' }}>Application Name: </span>
-                  {jsonReport?.ApplicationName || projectName}
-                </Typography>
-                <Divider style={{ margin: '10px 10px' }} />
-              </Grid>
-              {jsonReport?.SubProjects ? (
+          <TabPanel value={value} index={0}>
+            <Paper
+              style={{ padding: 20, width: '80vw' }}
+              elevation={0}
+              variant="outlined"
+            >
+              <Grid container>
                 <Grid item xs={12}>
                   <Typography variant="body1" gutter>
-                    <span style={{ color: '#eb4d4b' }}>Sub Projects</span>
-                    <List>{jsonReport ? generateList(subProjects) : null}</List>
+                    <span style={{ color: '#eb4d4b' }}>Submission Id: </span>{' '}
+                    {jsonReport?.SubmissionId}
                   </Typography>
+                  <Divider style={{ margin: '10px 10px' }} />
                 </Grid>
-              ) : null}
-              <Grid item xs={12}>
-                <Typography variant="body1" gutter>
-                  <span style={{ color: '#eb4d4b' }}>Last Updated: </span>
-                  {jsonReport?.CatalogLastUpdated}
-                </Typography>
-                <Divider style={{ margin: '10px 10px' }} />
+                <Grid item xs={12}>
+                  <Typography variant="body1" gutter>
+                    <span style={{ color: '#eb4d4b' }}>Application Name: </span>
+                    {jsonReport?.ApplicationName || projectName}
+                  </Typography>
+                  <Divider style={{ margin: '10px 10px' }} />
+                </Grid>
+                {jsonReport?.SubProjects ? (
+                  <Grid item xs={12}>
+                    <Typography variant="body1" gutter>
+                      <span style={{ color: '#eb4d4b' }}>Sub Projects</span>
+                      <List>
+                        {jsonReport ? generateList(subProjects) : null}
+                      </List>
+                    </Typography>
+                  </Grid>
+                ) : null}
+                <Grid item xs={12}>
+                  <Typography variant="body1" gutter>
+                    <span style={{ color: '#eb4d4b' }}>Last Updated: </span>
+                    {jsonReport?.CatalogLastUpdated}
+                  </Typography>
+                  <Divider style={{ margin: '10px 10px' }} />
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography variant="body1" gutter>
+                    <span style={{ color: '#eb4d4b' }}>
+                      Total Missing Dependencies:{' '}
+                    </span>
+                    {jsonReport?.MissingDependencies.length}
+                  </Typography>
+                  <Divider style={{ margin: '10px 10px' }} />
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography variant="body1" gutter>
+                    <span style={{ color: '#eb4d4b' }}>
+                      Total Unresolved Assemblies:{' '}
+                    </span>
+                    {jsonReport?.UnresolvedUserAssemblies.length}
+                  </Typography>
+                  <Divider style={{ margin: '10px 10px' }} />
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography variant="body1" gutter>
+                    <span style={{ color: '#eb4d4b' }}>Target Platforms </span>
+                    <br />
+                    {jsonReport?.Targets[0]}
+                    <br />
+                    {jsonReport?.Targets[1]}
+                    <br />
+                    {jsonReport?.Targets[2]}
+                  </Typography>
+                  <Divider style={{ margin: '10px 10px' }} />
+                </Grid>
               </Grid>
-              <Grid item xs={12}>
-                <Typography variant="body1" gutter>
-                  <span style={{ color: '#eb4d4b' }}>
-                    Total Missing Dependencies:{' '}
-                  </span>
-                  {jsonReport?.MissingDependencies.length}
-                </Typography>
-                <Divider style={{ margin: '10px 10px' }} />
-              </Grid>
-              <Grid item xs={12}>
-                <Typography variant="body1" gutter>
-                  <span style={{ color: '#eb4d4b' }}>
-                    Total Unresolved Assemblies:{' '}
-                  </span>
-                  {jsonReport?.UnresolvedUserAssemblies.length}
-                </Typography>
-                <Divider style={{ margin: '10px 10px' }} />
-              </Grid>
-              <Grid item xs={12}>
-                <Typography variant="body1" gutter>
-                  <span style={{ color: '#eb4d4b' }}>Target Platforms </span>
-                  <br />
-                  {jsonReport?.Targets[0]}
-                  <br />
-                  {jsonReport?.Targets[1]}
-                  <br />
-                  {jsonReport?.Targets[2]}
-                </Typography>
-                <Divider style={{ margin: '10px 10px' }} />
-              </Grid>
-            </Grid>
-          </Paper>
-        </TabPanel>
+            </Paper>
+          </TabPanel>
           <TabPanel value={value} index={1}>
             <TableContainer component={Paper}>
               <Table className={classes.table} aria-label="simple table">
