@@ -113,6 +113,8 @@ const Report = ({ projectPath, generateReport, jsonReport }) => {
     (jsonReport && getMissingAssemblyRows(jsonReport.MissingDependencies)) ||
     [];
 
+  const subProjects = jsonReport?.SubProjects?.map(el => el.slice(0, -8));
+
   return jsonReport ? (
     <>
       <Button component={Link} to="/" color="secondary">
@@ -157,15 +159,15 @@ const Report = ({ projectPath, generateReport, jsonReport }) => {
                 </Typography>
                 <Divider style={{ margin: '10px 10px' }} />
               </Grid>
-              <Grid item xs={12}>
-                <Typography variant="body1" gutter>
-                  <span style={{ color: '#eb4d4b' }}>Sub Projects</span>
-                  {jsonReport.SubProjects.reduce((acc, cur) => {
-                    return `${acc && acc + ',' || ':'} ${cur.slice(0, -8)}`;
-                  }, '')}
-                </Typography>
-                <Divider style={{ margin: '10px 10px' }} />
-              </Grid>
+              {jsonReport?.SubProjects ? (
+                <Grid item xs={12}>
+                  <Typography variant="body1" gutter>
+                    <span style={{ color: '#eb4d4b' }}>Sub Projects</span>
+                    <List>{jsonReport ? generateList(subProjects) : null}</List>
+                  </Typography>
+                  <Divider style={{ margin: '10px 10px' }} />
+                </Grid>
+              ) : null}
               <Grid item xs={12}>
                 <Typography variant="body1" gutter>
                   <span style={{ color: '#eb4d4b' }}>Last Updated: </span>
@@ -282,21 +284,9 @@ const Report = ({ projectPath, generateReport, jsonReport }) => {
           </TabPanel>
           <TabPanel value={value} index={2}>
             <List>
-              {jsonReport ? (
-                generateList(jsonReport.UnresolvedUserAssemblies)
-              ) : (
-                <>
-                  <ListItem>
-                    <ListItemAvatar>
-                      <Avatar>
-                        <DLLIcon color="secondary" />
-                      </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText primary="test" />
-                  </ListItem>
-                  <Divider style={{ margin: '20px 0px' }} />
-                </>
-              )}
+              {jsonReport
+                ? generateList(jsonReport.UnresolvedUserAssemblies)
+                : null}
             </List>
           </TabPanel>
         </div>
