@@ -37,7 +37,8 @@
     "no-mixed-operators": "off",
     "react/jsx-indent": "warn",
     "operator-linebreak": "off",
-    "react/jsx-one-expression-per-line": "off"
+    "react/jsx-one-expression-per-line": "off",
+    "prefer-template": "off"
   },
   "parser": "babel-eslint",
   "extends": "airbnb",

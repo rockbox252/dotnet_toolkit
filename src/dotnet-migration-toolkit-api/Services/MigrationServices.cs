@@ -16,7 +16,6 @@ namespace dotnet_migration_toolkit.Services
 
     public class MigrationService : IMigrationService
     {
-        private object projList;
         #region service methods
         public async Task<string> GetReport(string path, string reportType)
         {
