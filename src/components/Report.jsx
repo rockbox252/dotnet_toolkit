@@ -161,7 +161,7 @@ const Report = ({ projectPath, generateReport, jsonReport }) => {
                 <Typography variant="body1" gutter>
                   <span style={{ color: '#eb4d4b' }}>Sub Projects</span>
                   {jsonReport.SubProjects.reduce((acc, cur) => {
-                    return `${acc}, ${cur.slice(-8)}`;
+                    return `${acc && acc + ',' || ':'} ${cur.slice(0, -8)}`;
                   }, '')}
                 </Typography>
                 <Divider style={{ margin: '10px 10px' }} />
