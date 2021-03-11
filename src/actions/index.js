@@ -3,7 +3,7 @@ import { GENERATE_REPORT } from './types';
 
 export const generateReport = (path, reportType) => async dispatch => {
   const { data } = await axios.post(
-    `http://localhost:5000/api/v1/analyze/${reportType}`,
+    `https://localhost:44302/api/v1/analyze/${reportType}`,
     {
       path,
     }
