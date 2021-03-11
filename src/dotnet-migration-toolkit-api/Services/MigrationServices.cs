@@ -1,10 +1,8 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -58,53 +56,36 @@ namespace dotnet_migration_toolkit.Services
                 var exited = process.WaitForExit(1000 * 30);     // Waiting for the file generation for 30 seconds
                 Console.WriteLine($"exit {exited}");
             }
-            var solFilePath = Directory.GetFiles(path, "*.sln");
 
             var data = File.ReadAllText(@$"{Environment.CurrentDirectory}\ApiPortAnalysis.{reportType}");
             var dataObject = JObject.Parse(data);
 
-
-            var solFileLines = File.ReadAllLines(@$"{solFilePath[0]}");
-            var projList = new ArrayList();
-            foreach (var line in solFileLines)
+            if (reportType.ToLower() == "json")
             {
-                //string[] subProjects = new string[100];
-                //var projList = subProjects.ToList();
-
-
-                if (line.Contains("csproj"))
+                var solFilePath = Directory.GetFiles(path, "*.sln");
+                if (solFilePath.Length > 0)
                 {
-                    var projName = line.Split("\\")[1].Split(",")[0];
-                    projList.Add(projName);
+                    var solFileLines = File.ReadAllLines(@$"{solFilePath[0]}");
+                    var projList = new ArrayList();
+                    foreach (var line in solFileLines)
+                    {
+                        if (line.Contains("csproj"))
+                        {
+                            var projName = line.Split("\\")[1].Split(",")[0];
+                            projList.Add(projName);
+                        }
+                    }
+
+                    JArray array = new JArray();
+                    for (int i = 0; i < projList.Count; i++)
+                    {
+                        array.Add(projList[i]);
+                    }
+                    dataObject["SubProjects"] = array;
                 }
             }
 
-            string pattern = "csproj";
-            Regex r = new Regex(@"^.*?\W" + Regex.Escape(pattern) + @"\W.*?$");
-            var matches = r.Matches(@"^.*?\W" + Regex.Escape(pattern) + @"\W.*?$");
-
-
-            try
-            {
-
-                JArray array = new JArray();
-               
-
-                
-                for (int i = 0; i < projList.Count; i++)
-                {
-                    array.Add(projList[i]);
-                    //dataObject["SubProject"][i] = JObject.Parse((string)projList[i]);
-                }
-                dataObject["SubProjects"] = array;
-            }
-            catch(Exception e)
-            {
-                Console.WriteLine(e);
-            }
             var response = dataObject.ToString();
-
-
             return response;
         }
         #endregion 

@@ -159,6 +159,15 @@ const Report = ({ projectPath, generateReport, jsonReport }) => {
               </Grid>
               <Grid item xs={12}>
                 <Typography variant="body1" gutter>
+                  <span style={{ color: '#eb4d4b' }}>Sub Projects</span>
+                  {jsonReport.SubProjects.reduce((acc, cur) => {
+                    return `${acc}, ${cur.slice(-8)}`;
+                  }, '')}
+                </Typography>
+                <Divider style={{ margin: '10px 10px' }} />
+              </Grid>
+              <Grid item xs={12}>
+                <Typography variant="body1" gutter>
                   <span style={{ color: '#eb4d4b' }}>Last Updated: </span>
                   {jsonReport?.CatalogLastUpdated}
                 </Typography>
