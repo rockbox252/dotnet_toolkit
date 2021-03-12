@@ -15,6 +15,7 @@ const createWindow = () => {
       allowRunningInsecureContent: true,
     },
   });
+  mainWindow.maximize();
   mainWindow.loadURL(
     process.env.ELECTRON_START_URL ||
       url.format({

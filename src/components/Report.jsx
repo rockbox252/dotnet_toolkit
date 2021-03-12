@@ -104,7 +104,7 @@ const generateList = (unresolvedAssemblies, margin = 0) => {
   });
 };
 
-const Report = ({ projectPath, generateReport, jsonReport }) => {
+const Report = ({ projectPath, generateReport, jsonReport, clearStore }) => {
   const classes = useStyles();
 
   const [value, setValue] = useState(0);
@@ -122,7 +122,7 @@ const Report = ({ projectPath, generateReport, jsonReport }) => {
 
   return jsonReport ? (
     <>
-      <Button component={Link} to="/" color="secondary">
+      <Button component={Link} to="/" color="secondary" onClick={clearStore}>
         Go Back &larr;
       </Button>
       <Button
@@ -313,6 +313,8 @@ const Report = ({ projectPath, generateReport, jsonReport }) => {
 };
 
 const mapStateToProps = state => {
+  if (!state.app) return null;
+
   const {
     app: { projectPath, jsonReport },
   } = state;
