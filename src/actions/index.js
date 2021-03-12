@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { GENERATE_REPORT } from './types';
+
+import { GENERATE_REPORT, CLEAR_REPORT } from './types';
 
 export const generateReport = (path, reportType) => async dispatch => {
   const { data } = await axios.post(
@@ -12,3 +13,9 @@ export const generateReport = (path, reportType) => async dispatch => {
 };
 
 // https://localhost:44302
+
+export const clearStore = () => {
+  return {
+    type: CLEAR_REPORT,
+  }
+}

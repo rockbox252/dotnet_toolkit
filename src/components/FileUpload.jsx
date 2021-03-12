@@ -46,6 +46,7 @@ const FileUpload = ({ generateReport, projectPath }) => {
 };
 
 const mapStateToProps = state => {
+  if (!state.app) return null;
   const {
     app: { projectPath },
   } = state;

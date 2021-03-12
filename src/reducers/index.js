@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
-import { GENERATE_REPORT } from '../actions/types';
+
+import { GENERATE_REPORT, CLEAR_REPORT } from '../actions/types';
 
 const reducer = (state = null, action) => {
   switch (action.type) {
@@ -14,11 +15,13 @@ const reducer = (state = null, action) => {
 
       return { ...state };
     }
+    case CLEAR_REPORT: {
+      return null;
+    }
     default:
       return { ...state };
   }
 };
-
 export default combineReducers({
   app: reducer,
 });
