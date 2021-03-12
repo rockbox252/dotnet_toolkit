@@ -19,22 +19,23 @@ namespace dotnet_migration_toolkit.Services
         #region service methods
         public async Task<string> GetReport(string path, string reportType)
         {
-            if (File.Exists(@$"{Environment.CurrentDirectory}\ApiPortAnalysis.xlsx"))
+            if (reportType.ToLower() == "xlsx" && File.Exists(@$"{Environment.CurrentDirectory}\ApiPortAnalysis.xlsx"))
             {
                 File.Delete(@$"{Environment.CurrentDirectory}\ApiPortAnalysis.xlsx");
             }
-            if (File.Exists(@$"{Environment.CurrentDirectory}\ApiPortAnalysis.html"))
+            if (reportType.ToLower() == "html" && File.Exists(@$"{Environment.CurrentDirectory}\ApiPortAnalysis.html"))
             {
                 File.Delete(@$"{Environment.CurrentDirectory}\ApiPortAnalysis.html");
             }
-            if (File.Exists(@$"{Environment.CurrentDirectory}\ApiPortAnalysis.json"))
+            if (reportType.ToLower() == "json" && File.Exists(@$"{Environment.CurrentDirectory}\ApiPortAnalysis.json"))
             {
                 File.Delete(@$"{Environment.CurrentDirectory}\ApiPortAnalysis.json");
             }
-            if (File.Exists(@$"{Environment.CurrentDirectory}\ApiPortAnalysis.dgml"))
+            if (reportType.ToLower() == "dgml" && File.Exists(@$"{Environment.CurrentDirectory}\ApiPortAnalysis.dgml"))
             {
                 File.Delete(@$"{Environment.CurrentDirectory}\ApiPortAnalysis.dgml");
             }
+
 
 
             using (var process = new Process())
@@ -57,10 +58,11 @@ namespace dotnet_migration_toolkit.Services
             }
 
             var data = File.ReadAllText(@$"{Environment.CurrentDirectory}\ApiPortAnalysis.{reportType}");
-            var dataObject = JObject.Parse(data);
+            var response= data;
 
             if (reportType.ToLower() == "json")
             {
+                var dataObject = JObject.Parse(data);
                 if (!path.Contains("dll"))
                 {
                     var solFilePath = Directory.GetFiles(path, "*.sln");
@@ -80,14 +82,15 @@ namespace dotnet_migration_toolkit.Services
                         JArray array = new JArray();
                         for (int i = 0; i < projList.Count; i++)
                         {
-                            array.Add(projList[i]);
+                            array.Add(projList[i]); 
                         }
                         dataObject["SubProjects"] = array;
                     }
                 }
+                response = dataObject.ToString();
             }
 
-            var response = dataObject.ToString();
+            
             return response;
         }
         #endregion 
