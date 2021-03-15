@@ -104,7 +104,7 @@ const generateList = (unresolvedAssemblies, margin = 0, clearStore = null) => {
           </>
         ) : (
           <>
-            <ListItem component={Link} to="/" onClick={clearStore} key={ua}>
+            <ListItem key={ua}>
               <ListItemAvatar>
                 <Avatar>
                   {margin ? (
