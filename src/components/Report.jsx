@@ -82,11 +82,11 @@ function a11yProps(index) {
   };
 }
 
-const generateList = (unresolvedAssemblies, margin = 0) => {
+const generateList = (unresolvedAssemblies, margin = 0, clearStore = null) => {
   return unresolvedAssemblies.map(ua => {
     return (
       <>
-        <ListItem key={ua}>
+        <ListItem component={Link} to="/" onClick={clearStore} key={ua}>
           <ListItemAvatar>
             <Avatar>
               {margin ? (
