@@ -86,19 +86,39 @@ const generateList = (unresolvedAssemblies, margin = 0, clearStore = null) => {
   return unresolvedAssemblies.map(ua => {
     return (
       <>
-        <ListItem component={Link} to="/" onClick={clearStore} key={ua}>
-          <ListItemAvatar>
-            <Avatar>
-              {margin ? (
-                <DLLIcon color="secondary" />
-              ) : (
-                <SubProject color="secondary" />
-              )}
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText primary={ua} />
-        </ListItem>
-        <Divider style={{ marginTop: margin, marginBottom: margin }} />
+        {!margin ? (
+          <>
+            <ListItem component={Link} to="/" onClick={clearStore} key={ua}>
+              <ListItemAvatar>
+                <Avatar>
+                  {margin ? (
+                    <DLLIcon color="secondary" />
+                  ) : (
+                    <SubProject color="secondary" />
+                  )}
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText primary={ua} />
+            </ListItem>
+            <Divider style={{ marginTop: margin, marginBottom: margin }} />
+          </>
+        ) : (
+          <>
+            <ListItem component={Link} to="/" onClick={clearStore} key={ua}>
+              <ListItemAvatar>
+                <Avatar>
+                  {margin ? (
+                    <DLLIcon color="secondary" />
+                  ) : (
+                    <SubProject color="secondary" />
+                  )}
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText primary={ua} />
+            </ListItem>
+            <Divider style={{ marginTop: margin, marginBottom: margin }} />{' '}
+          </>
+        )}
       </>
     );
   });
