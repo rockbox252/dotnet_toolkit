@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 
 import Header from './Header';
@@ -6,12 +6,17 @@ import Footer from './Footer';
 import FileUpload from './FileUpload';
 import Report from './Report';
 import IFrame from './IFrame';
+import Estimation from './Estimation';
+import Migration from './Migration';
+import UIConvertor from './UIConvertor';
 
 const App = () => {
+  const [tabValue, setTabValue] = useState(0);
+
   return (
     <div>
-      <Header />
       <BrowserRouter>
+        <Header tabValue={tabValue} setTabValue={setTabValue} />
         <Route exact path="/">
           <FileUpload />
         </Route>
@@ -21,8 +26,17 @@ const App = () => {
         <Route exact path="/report/html">
           <IFrame />
         </Route>
+        <Route exact path="/estimation">
+          <Estimation />
+        </Route>
+        <Route exact path="/migration">
+          <Migration />
+        </Route>
+        <Route exact path="/uiconvertor">
+          <UIConvertor />
+        </Route>
+        <Footer />
       </BrowserRouter>
-      <Footer />
     </div>
   );
 };

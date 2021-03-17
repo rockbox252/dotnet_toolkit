@@ -197,7 +197,9 @@ const Report = ({ projectPath, generateReport, jsonReport, clearStore }) => {
                     <Typography variant="body1" gutter>
                       <span style={{ color: '#eb4d4b' }}>Sub Projects</span>
                       <List>
-                        {jsonReport ? generateList(subProjects) : null}
+                        {jsonReport
+                          ? generateList(subProjects, 0, clearStore)
+                          : null}
                       </List>
                     </Typography>
                   </Grid>
