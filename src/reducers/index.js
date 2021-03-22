@@ -12,8 +12,8 @@ const reducer = (state = null, action) => {
 
       if (reportType === 'json')
         return { ...state, projectPath: path, jsonReport: data };
-
-      if (reportType === 'xlsx')
+      debugger;
+      if (reportType === 'excel')
         return { ...state, projectPath: path, excelReport: true };
 
       return { ...state };
