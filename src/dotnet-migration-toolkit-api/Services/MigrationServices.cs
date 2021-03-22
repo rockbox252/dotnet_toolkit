@@ -43,14 +43,14 @@ namespace dotnet_migration_toolkit.Services
                     process.StartInfo.Arguments = $"analyze -r {reportType} -f {path}";
                 else
                 {
-                    var downloadPath = path;
+                    var downloadPath = Environment.SpecialFolder.MyDocuments;
 
-                    if (path.Contains(".dll"))
-                    {
-                        downloadPath = path.Split(".dll")[0];
-                    }
+                    //if (path.Contains(".dll"))
+                    //{
+                    //    downloadPath = path.Split(".dll")[0];
+                    //}
 
-                    process.StartInfo.Arguments = $"analyze -r {reportType} -f {path} -o {downloadPath}";
+                    process.StartInfo.Arguments = $"analyze -r {reportType} -f {path} -o {downloadPath}\\ExcelReport.xlsx";
                 }
                 process.StartInfo.CreateNoWindow = true;
                 process.StartInfo.UseShellExecute = false;
