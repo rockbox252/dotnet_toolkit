@@ -164,14 +164,14 @@ const Report = ({
         <Button
           color="secondary"
           style={{ float: 'right' }}
-          onClick={() => generateReport(projectPath, 'xlsx')}
+          onClick={() => generateReport(projectPath, 'excel')}
         >
           Download Excel Report
         </Button>
       ) : (
-        <Typography variant="caption" gutter>
-          Excel report has been saved in your Documents folder
-        </Typography>
+        <Button color="secondary" style={{ float: 'right', pointerEvents: 'none' }}>
+        Excel Report Saved At Project Location
+        </Button>
       )}
       <Paper className={classes.reportContainer} variant="outlined">
         <AppBar position="static" style={{ maxHeight: 43 }} color="secondary">
@@ -354,8 +354,8 @@ const Report = ({
 };
 
 const mapStateToProps = state => {
-  if (!state.app) return null;
-
+  if (!state.app) return {};
+  debugger;
   const {
     app: { projectPath, jsonReport, excelReport },
   } = state;

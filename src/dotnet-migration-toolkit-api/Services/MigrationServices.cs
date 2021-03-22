@@ -19,10 +19,10 @@ namespace dotnet_migration_toolkit.Services
         #region service methods
         public async Task<string> GetReport(string path, string reportType)
         {
-            if (reportType.ToLower() == "xlsx" && File.Exists(@$"{Environment.CurrentDirectory}\ApiPortAnalysis.xlsx"))
-            {
-                reportType = "excel";
-            }
+            //if (reportType.ToLower() == "xlsx")
+            //{
+            //    reportType = "excel";
+            //}
             if (reportType.ToLower() == "html" && File.Exists(@$"{Environment.CurrentDirectory}\ApiPortAnalysis.html"))
             {
                 File.Delete(@$"{Environment.CurrentDirectory}\ApiPortAnalysis.html");
@@ -43,12 +43,12 @@ namespace dotnet_migration_toolkit.Services
                     process.StartInfo.Arguments = $"analyze -r {reportType} -f {path}";
                 else
                 {
-                    var downloadPath = Environment.SpecialFolder.MyDocuments;
+                    var downloadPath = path;
 
-                    //if (path.Contains(".dll"))
-                    //{
-                    //    downloadPath = path.Split(".dll")[0];
-                    //}
+                    if (path.Contains(".dll"))
+                    {
+                        downloadPath = path.Split(".dll")[0];
+                    }
 
                     process.StartInfo.Arguments = $"analyze -r {reportType} -f {path} -o {downloadPath}\\ExcelReport.xlsx";
                 }
