@@ -124,7 +124,13 @@ const generateList = (unresolvedAssemblies, margin = 0, clearStore = null) => {
   });
 };
 
-const Report = ({ projectPath, generateReport, jsonReport, clearStore }) => {
+const Report = ({
+  projectPath,
+  generateReport,
+  jsonReport,
+  clearStore,
+  excelReport,
+}) => {
   const classes = useStyles();
 
   const [value, setValue] = useState(0);
@@ -154,6 +160,19 @@ const Report = ({ projectPath, generateReport, jsonReport, clearStore }) => {
       >
         View Detailed Report
       </Button>
+      {!excelReport ? (
+        <Button
+          color="secondary"
+          style={{ float: 'right' }}
+          onClick={() => generateReport(projectPath, 'xlsx')}
+        >
+          Download Excel Report
+        </Button>
+      ) : (
+        <Typography variant="caption" gutter>
+          Excel report has been saved in your Documents folder
+        </Typography>
+      )}
       <Paper className={classes.reportContainer} variant="outlined">
         <AppBar position="static" style={{ maxHeight: 43 }} color="secondary">
           <Tabs value={value} onChange={handleChange}>
@@ -338,11 +357,12 @@ const mapStateToProps = state => {
   if (!state.app) return null;
 
   const {
-    app: { projectPath, jsonReport },
+    app: { projectPath, jsonReport, excelReport },
   } = state;
   return {
     projectPath,
     jsonReport,
+    excelReport,
   };
 };
 

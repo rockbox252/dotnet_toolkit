@@ -13,6 +13,9 @@ const reducer = (state = null, action) => {
       if (reportType === 'json')
         return { ...state, projectPath: path, jsonReport: data };
 
+      if (reportType === 'xlsx')
+        return { ...state, projectPath: path, excelReport: true };
+
       return { ...state };
     }
     case CLEAR_REPORT: {

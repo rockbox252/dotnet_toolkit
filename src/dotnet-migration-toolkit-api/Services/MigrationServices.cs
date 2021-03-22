@@ -66,6 +66,10 @@ namespace dotnet_migration_toolkit.Services
                 var exited = process.WaitForExit(1000 * 30);     // Waiting for the file generation for 30 seconds
                 Console.WriteLine($"exit {exited}");
             }
+            if (reportType == "excel")
+            {
+                return "ok";
+            }
 
             var data = File.ReadAllText(@$"{Environment.CurrentDirectory}\ApiPortAnalysis.{reportType}");
             var response = data;

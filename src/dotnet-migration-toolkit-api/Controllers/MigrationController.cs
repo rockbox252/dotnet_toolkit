@@ -42,7 +42,7 @@ namespace dotnet_migration_toolkit.Controllers
         public async Task<IActionResult> GetExcelReport([FromBody] PathModel pathModel)
         {
             var resString = await _migrationService.GetReport(pathModel.path, "excel");
-            return Ok(resString);
+            return Ok("Success");
         }
 
         [HttpPost]
