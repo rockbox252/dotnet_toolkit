@@ -21,7 +21,7 @@ namespace dotnet_migration_toolkit.Services
         {
             if (reportType.ToLower() == "xlsx" && File.Exists(@$"{Environment.CurrentDirectory}\ApiPortAnalysis.xlsx"))
             {
-                File.Delete(@$"{Environment.CurrentDirectory}\ApiPortAnalysis.xlsx");
+                reportType = "excel";
             }
             if (reportType.ToLower() == "html" && File.Exists(@$"{Environment.CurrentDirectory}\ApiPortAnalysis.html"))
             {
@@ -36,12 +36,22 @@ namespace dotnet_migration_toolkit.Services
                 File.Delete(@$"{Environment.CurrentDirectory}\ApiPortAnalysis.dgml");
             }
 
-
-
             using (var process = new Process())
             {
                 process.StartInfo.FileName = @$"{Environment.CurrentDirectory}\ApiPort\ApiPort.exe"; // relative path. absolute path works too.
-                process.StartInfo.Arguments = $"analyze -r {reportType} -f {path}";
+                if (reportType != "excel")
+                    process.StartInfo.Arguments = $"analyze -r {reportType} -f {path}";
+                else
+                {
+                    var downloadPath = path;
+
+                    if (path.Contains(".dll"))
+                    {
+                        downloadPath = path.Split(".dll")[0];
+                    }
+
+                    process.StartInfo.Arguments = $"analyze -r {reportType} -f {path} -o {downloadPath}";
+                }
                 process.StartInfo.CreateNoWindow = true;
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.RedirectStandardOutput = true;
@@ -58,7 +68,7 @@ namespace dotnet_migration_toolkit.Services
             }
 
             var data = File.ReadAllText(@$"{Environment.CurrentDirectory}\ApiPortAnalysis.{reportType}");
-            var response= data;
+            var response = data;
 
             if (reportType.ToLower() == "json")
             {
@@ -82,7 +92,7 @@ namespace dotnet_migration_toolkit.Services
                         JArray array = new JArray();
                         for (int i = 0; i < projList.Count; i++)
                         {
-                            array.Add(projList[i]); 
+                            array.Add(projList[i]);
                         }
                         dataObject["SubProjects"] = array;
                     }
@@ -90,7 +100,7 @@ namespace dotnet_migration_toolkit.Services
                 response = dataObject.ToString();
             }
 
-            
+
             return response;
         }
         #endregion 
