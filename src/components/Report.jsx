@@ -131,6 +131,7 @@ const Report = ({
   clearStore,
   excelReport,
 }) => {
+  let showLoader = false;
   const classes = useStyles();
 
   const [value, setValue] = useState(0);
@@ -145,6 +146,11 @@ const Report = ({
     [];
 
   const subProjects = jsonReport?.SubProjects?.map(el => el.slice(0, -8));
+
+  const handleExcelReport = (path, reportType = 'excel') => {
+    showLoader = true;
+    generateReport(path, reportType);
+  };
 
   return jsonReport ? (
     <>
@@ -161,16 +167,25 @@ const Report = ({
         View Detailed Report
       </Button>
       {!excelReport ? (
+        (showLoader && (
+          <Typography color="secondary" variant="caption">
+            Loading...
+          </Typography>
+        )) || (
+          <Button
+            color="secondary"
+            style={{ float: 'right' }}
+            onClick={() => handleExcelReport(projectPath, 'excel')}
+          >
+            Generate Excel Report
+          </Button>
+        )
+      ) : (
         <Button
           color="secondary"
-          style={{ float: 'right' }}
-          onClick={() => generateReport(projectPath, 'excel')}
+          style={{ float: 'right', pointerEvents: 'none' }}
         >
-          Download Excel Report
-        </Button>
-      ) : (
-        <Button color="secondary" style={{ float: 'right', pointerEvents: 'none' }}>
-        Excel Report Saved At Project Location
+          Excel Report Saved In Project Folder
         </Button>
       )}
       <Paper className={classes.reportContainer} variant="outlined">
