@@ -131,9 +131,9 @@ const Report = ({
   clearStore,
   excelReport,
 }) => {
-  let showLoader = false;
+  const [showLoader, setShowLoader] = useState(false);
+  // setShowLoader(excelReport === null ? true : false);
   const classes = useStyles();
-
   const [value, setValue] = useState(0);
   const projectName = projectPath?.split('\\').pop();
 
@@ -148,7 +148,7 @@ const Report = ({
   const subProjects = jsonReport?.SubProjects?.map(el => el.slice(0, -8));
 
   const handleExcelReport = (path, reportType = 'excel') => {
-    showLoader = true;
+    setShowLoader(true);
     generateReport(path, reportType);
   };
 
@@ -168,9 +168,9 @@ const Report = ({
       </Button>
       {!excelReport ? (
         (showLoader && (
-          <Typography color="secondary" variant="caption">
+          <Button color="secondary" style={{ float: 'right', pointerEvents: 'none' }}>
             Loading...
-          </Typography>
+          </Button>
         )) || (
           <Button
             color="secondary"
@@ -370,7 +370,6 @@ const Report = ({
 
 const mapStateToProps = state => {
   if (!state.app) return {};
-  debugger;
   const {
     app: { projectPath, jsonReport, excelReport },
   } = state;
