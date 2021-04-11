@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { GENERATE_REPORT, CLEAR_REPORT } from './types';
+import { GENERATE_REPORT, CLEAR_REPORT, SEARCH_NUGET } from './types';
 
 export const generateReport = (path, reportType) => async dispatch => {
   const { data } = await axios.post(
@@ -17,5 +17,19 @@ export const generateReport = (path, reportType) => async dispatch => {
 export const clearStore = () => {
   return {
     type: CLEAR_REPORT,
-  }
-}
+  };
+};
+
+export const nugetSearch = searchTerm => async dispatch => {
+  const { data } = await axios.get(`https://azuresearch-usnc.nuget.org/`, {
+    params: {
+      q: searchTerm,
+      prerelease: false,
+      packageType: 'dependency',
+    },
+  });
+  return dispatch({
+    type: SEARCH_NUGET,
+    payload: data,
+  });
+};

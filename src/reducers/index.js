@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { GENERATE_REPORT, CLEAR_REPORT } from '../actions/types';
+import { GENERATE_REPORT, CLEAR_REPORT, SEARCH_NUGET } from '../actions/types';
 
 const reducer = (state = null, action) => {
   switch (action.type) {
@@ -19,6 +19,9 @@ const reducer = (state = null, action) => {
     }
     case CLEAR_REPORT: {
       return null;
+    }
+    case SEARCH_NUGET: {
+      return { ...state, nugetRes: action.payload };
     }
     default:
       return { ...state };
