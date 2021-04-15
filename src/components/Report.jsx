@@ -160,14 +160,13 @@ const Report = ({
   const [showLoader, setShowLoader] = useState(false);
   const classes = useStyles();
   const [value, setValue] = useState(0);
-  const [uaArr, setUAArr] = useState([]);
   const projectName = projectPath?.split('\\').pop();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  setUAArr(jsonReport?.UnresolvedUserAssemblies?.sort((a, b) => a - b));
+  const uaArr = jsonReport?.UnresolvedUserAssemblies?.sort((a, b) => a - b);
 
   uaArr.forEach(assembly => {
     let name = assembly.split(',')[0];
