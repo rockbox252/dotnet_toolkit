@@ -86,7 +86,7 @@ const generateList = (
   unresolvedAssemblies,
   margin = 0,
   clearStore = null,
-  alternateList
+  nugetRes
 ) => {
   return unresolvedAssemblies.map((ua, index) => {
     return (
@@ -121,7 +121,22 @@ const generateList = (
               </ListItemAvatar>
               <ListItemText
                 primary={ua}
-                secondary={`Alternative: ${'Core Version'}`}
+                secondary={
+                  nugetRes ? (
+                  <>
+                    <Typography
+                      component="span"
+                      variant="body2"
+                      style={{ display: 'inline' }}
+                      color="textPrimary"
+                    >
+                      {nugetRes && nugetRes[index]?.title}{' '}
+                    </Typography>
+                    Created By: {nugetRes && nugetRes[index]?.authors[0]}, Total Downloads:{' '}
+                    {nugetRes && nugetRes[index]?.totalDownloads}
+                  </>
+                  ) : null
+                }
               />
             </ListItem>
             <Divider style={{ marginTop: margin, marginBottom: margin }} />{' '}
@@ -139,6 +154,7 @@ const Report = ({
   clearStore,
   excelReport,
   nugetSearch,
+  nugetRes,
 }) => {
   const [showLoader, setShowLoader] = useState(false);
   const classes = useStyles();
@@ -149,9 +165,13 @@ const Report = ({
     setValue(newValue);
   };
 
-  jsonReport.UnresolvedUserAssemblies.forEach(assembly => {
-    console.log('assembly name for nuget search', assembly);
-    nugetSearch(assembly);
+  jsonReport?.UnresolvedUserAssemblies?.forEach(assembly => {
+    const name = assembly.split(',')[0];
+    // if(name.include('.'))
+    // {
+
+    // }
+    nugetSearch(name + ' core');
   });
 
   const missingAssemblyRows =
@@ -362,7 +382,7 @@ const Report = ({
           <TabPanel value={value} index={2}>
             <List>
               {jsonReport
-                ? generateList(jsonReport.UnresolvedUserAssemblies, 20)
+                ? generateList(jsonReport.UnresolvedUserAssemblies, 20, null, nugetRes)
                 : null}
             </List>
           </TabPanel>
@@ -386,13 +406,15 @@ const Report = ({
 
 const mapStateToProps = state => {
   if (!state.app) return {};
+  debugger;
   const {
-    app: { projectPath, jsonReport, excelReport },
+    app: { projectPath, jsonReport, excelReport, nugetRes },
   } = state;
   return {
     projectPath,
     jsonReport,
     excelReport,
+    nugetRes,
   };
 };
 
