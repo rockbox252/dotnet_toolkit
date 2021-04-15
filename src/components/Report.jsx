@@ -120,7 +120,7 @@ const generateList = (
                 </Avatar>
               </ListItemAvatar>
               <ListItemText
-                primary={nugetRes[index].assemblyName}
+                primary={nugetRes && nugetRes[index].assemblyName}
                 secondary={
                   nugetRes ? (
                     <>
@@ -132,10 +132,13 @@ const generateList = (
                       >
                         {nugetRes && nugetRes[index]?.searchRes?.title}{' '}
                       </Typography>
+                      <br />
                       Created By:{' '}
-                      {nugetRes && nugetRes[index]?.searchRes?.authors[0]},
+                      {nugetRes && nugetRes[index]?.searchRes?.authors[0]}
+                      <br />
                       Total Downloads:{' '}
                       {nugetRes && nugetRes[index]?.searchRes?.totalDownloads}
+                      <br />
                       Description:{' '}
                       {nugetRes && nugetRes[index]?.searchRes?.description}
                     </>
