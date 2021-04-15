@@ -88,6 +88,8 @@ const generateList = (
   clearStore = null,
   nugetRes
 ) => {
+  console.log(nugetRes);
+  debugger;
   return unresolvedAssemblies.map((ua, index) => {
     return (
       <>
@@ -166,14 +168,12 @@ const Report = ({
     setValue(newValue);
   };
 
-  const uaArr = jsonReport?.UnresolvedUserAssemblies?.sort((a, b) => a - b);
-
-  uaArr.forEach(assembly => {
+  jsonReport?.UnresolvedUserAssemblies?.forEach(assembly => {
     let name = assembly.split(',')[0];
     if (name.include('.')) {
       name = name.split('.').pop();
     }
-    nugetSearch(name + ' core');
+    nugetSearch(name + ' core', assembly);
   });
 
   const missingAssemblyRows =
@@ -383,7 +383,14 @@ const Report = ({
           </TabPanel>
           <TabPanel value={value} index={2}>
             <List>
-              {jsonReport ? generateList(uaArr, 20, null, nugetRes) : null}
+              {jsonReport
+                ? generateList(
+                    jsonReport?.UnresolvedUserAssemblies?.sort((a, b) => a - b),
+                    20,
+                    null,
+                    nugetRes
+                  )
+                : null}
             </List>
           </TabPanel>
         </div>

@@ -20,7 +20,10 @@ export const clearStore = () => {
   };
 };
 
-export const nugetSearch = searchTerm => async (dispatch, getState) => {
+export const nugetSearch = (searchTerm, assemblyName) => async (
+  dispatch,
+  getState
+) => {
   const state = getState();
   const { data } = await axios.get(`https://azuresearch-usnc.nuget.org/query`, {
     params: {
@@ -35,6 +38,6 @@ export const nugetSearch = searchTerm => async (dispatch, getState) => {
   // }
   return dispatch({
     type: SEARCH_NUGET,
-    payload: data.data[0],
+    payload: { searchRes: data.data[0], assemblyName },
   });
 };
