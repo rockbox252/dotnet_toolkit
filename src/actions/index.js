@@ -22,17 +22,19 @@ export const clearStore = () => {
 
 export const nugetSearch = searchTerm => async (dispatch, getState) => {
   const state = getState();
-  console.log(state);
-  debugger;
-  const { data } = await axios.get(`https://azuresearch-usnc.nuget.org/`, {
+  const { data } = await axios.get(`https://azuresearch-usnc.nuget.org/query`, {
     params: {
       q: searchTerm,
       prerelease: false,
       packageType: 'dependency',
     },
   });
+  // if (!nugetRes) {
+  //   nugetRes = [];
+  //   nugetRes.push(data.data[0]);
+  // }
   return dispatch({
     type: SEARCH_NUGET,
-    payload: data,
+    payload: data.data[0],
   });
 };
