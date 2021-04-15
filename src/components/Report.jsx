@@ -103,7 +103,7 @@ const generateList = (
                   )}
                 </Avatar>
               </ListItemAvatar>
-              <ListItemText primary={nugetRes[index].assemblyName} />
+              <ListItemText primary={ua} />
             </ListItem>
             <Divider style={{ marginTop: margin, marginBottom: margin }} />
           </>
@@ -120,7 +120,7 @@ const generateList = (
                 </Avatar>
               </ListItemAvatar>
               <ListItemText
-                primary={ua}
+                primary={nugetRes[index].assemblyName}
                 secondary={
                   nugetRes ? (
                     <>
