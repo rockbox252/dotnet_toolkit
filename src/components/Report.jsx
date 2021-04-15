@@ -88,8 +88,6 @@ const generateList = (
   clearStore = null,
   nugetRes
 ) => {
-  console.log(nugetRes);
-  debugger;
   return unresolvedAssemblies.map((ua, index) => {
     return (
       <>
@@ -105,7 +103,7 @@ const generateList = (
                   )}
                 </Avatar>
               </ListItemAvatar>
-              <ListItemText primary={ua} />
+              <ListItemText primary={nugetRes[index].assemblyName} />
             </ListItem>
             <Divider style={{ marginTop: margin, marginBottom: margin }} />
           </>
@@ -129,14 +127,17 @@ const generateList = (
                       <Typography
                         component="span"
                         variant="body2"
-                        style={{ display: 'inline' }}
+                        // style={{ display: 'inline' }}
                         color="textPrimary"
                       >
-                        {nugetRes && nugetRes[index]?.title}{' '}
+                        {nugetRes && nugetRes[index]?.searchRes?.title}{' '}
                       </Typography>
-                      Created By: {nugetRes && nugetRes[index]?.authors[0]},
+                      Created By:{' '}
+                      {nugetRes && nugetRes[index]?.searchRes?.authors[0]},
                       Total Downloads:{' '}
-                      {nugetRes && nugetRes[index]?.totalDownloads}
+                      {nugetRes && nugetRes[index]?.searchRes?.totalDownloads}
+                      Description:{' '}
+                      {nugetRes && nugetRes[index]?.searchRes?.description}
                     </>
                   ) : null
                 }
@@ -170,7 +171,7 @@ const Report = ({
 
   jsonReport?.UnresolvedUserAssemblies?.forEach(assembly => {
     let name = assembly.split(',')[0];
-    if (name.include('.')) {
+    if (name.includes('.')) {
       name = name.split('.').pop();
     }
     nugetSearch(name + ' core', assembly);
@@ -413,7 +414,6 @@ const Report = ({
 
 const mapStateToProps = state => {
   if (!state.app) return {};
-  debugger;
   const {
     app: { projectPath, jsonReport, excelReport, nugetRes },
   } = state;
