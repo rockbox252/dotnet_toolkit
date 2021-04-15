@@ -123,18 +123,19 @@ const generateList = (
                 primary={ua}
                 secondary={
                   nugetRes ? (
-                  <>
-                    <Typography
-                      component="span"
-                      variant="body2"
-                      style={{ display: 'inline' }}
-                      color="textPrimary"
-                    >
-                      {nugetRes && nugetRes[index]?.title}{' '}
-                    </Typography>
-                    Created By: {nugetRes && nugetRes[index]?.authors[0]}, Total Downloads:{' '}
-                    {nugetRes && nugetRes[index]?.totalDownloads}
-                  </>
+                    <>
+                      <Typography
+                        component="span"
+                        variant="body2"
+                        style={{ display: 'inline' }}
+                        color="textPrimary"
+                      >
+                        {nugetRes && nugetRes[index]?.title}{' '}
+                      </Typography>
+                      Created By: {nugetRes && nugetRes[index]?.authors[0]},
+                      Total Downloads:{' '}
+                      {nugetRes && nugetRes[index]?.totalDownloads}
+                    </>
                   ) : null
                 }
               />
@@ -159,18 +160,20 @@ const Report = ({
   const [showLoader, setShowLoader] = useState(false);
   const classes = useStyles();
   const [value, setValue] = useState(0);
+  const [uaArr, setUAArr] = useState([]);
   const projectName = projectPath?.split('\\').pop();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  jsonReport?.UnresolvedUserAssemblies?.forEach(assembly => {
-    const name = assembly.split(',')[0];
-    // if(name.include('.'))
-    // {
+  setUAArr(jsonReport?.UnresolvedUserAssemblies?.sort((a, b) => a - b));
 
-    // }
+  uaArr.forEach(assembly => {
+    let name = assembly.split(',')[0];
+    if (name.include('.')) {
+      name = name.split('.').pop();
+    }
     nugetSearch(name + ' core');
   });
 
@@ -381,9 +384,7 @@ const Report = ({
           </TabPanel>
           <TabPanel value={value} index={2}>
             <List>
-              {jsonReport
-                ? generateList(jsonReport.UnresolvedUserAssemblies, 20, null, nugetRes)
-                : null}
+              {jsonReport ? generateList(uaArr, 20, null, nugetRes) : null}
             </List>
           </TabPanel>
         </div>

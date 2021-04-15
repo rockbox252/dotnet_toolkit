@@ -21,8 +21,7 @@ const reducer = (state = null, action) => {
       return null;
     }
     case SEARCH_NUGET: {
-      if (state.nugetRes)
-        state.nugetRes.push(action.payload);
+      if (state.nugetRes) state.nugetRes.push(action.payload);
       else {
         state.nugetRes = [];
         state.nugetRes.push(action.payload);
