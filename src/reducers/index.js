@@ -21,6 +21,8 @@ const reducer = (state = null, action) => {
       return null;
     }
     case SEARCH_NUGET: {
+      debugger;
+
       return { ...state, nugetRes: action.payload };
     }
     default:

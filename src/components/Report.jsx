@@ -82,8 +82,13 @@ function a11yProps(index) {
   };
 }
 
-const generateList = (unresolvedAssemblies, margin = 0, clearStore = null) => {
-  return unresolvedAssemblies.map(ua => {
+const generateList = (
+  unresolvedAssemblies,
+  margin = 0,
+  clearStore = null,
+  alternateList
+) => {
+  return unresolvedAssemblies.map((ua, index) => {
     return (
       <>
         {!margin ? (
@@ -114,7 +119,10 @@ const generateList = (unresolvedAssemblies, margin = 0, clearStore = null) => {
                   )}
                 </Avatar>
               </ListItemAvatar>
-              <ListItemText primary={ua} />
+              <ListItemText
+                primary={ua}
+                secondary={`Alternative: ${'Core Version'}`}
+              />
             </ListItem>
             <Divider style={{ marginTop: margin, marginBottom: margin }} />{' '}
           </>
@@ -130,9 +138,9 @@ const Report = ({
   jsonReport,
   clearStore,
   excelReport,
+  nugetSearch,
 }) => {
   const [showLoader, setShowLoader] = useState(false);
-  // setShowLoader(excelReport === null ? true : false);
   const classes = useStyles();
   const [value, setValue] = useState(0);
   const projectName = projectPath?.split('\\').pop();
@@ -140,6 +148,11 @@ const Report = ({
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  jsonReport.UnresolvedUserAssemblies.forEach(assembly => {
+    console.log('assembly name for nuget search', assembly);
+    nugetSearch(assembly);
+  });
 
   const missingAssemblyRows =
     (jsonReport && getMissingAssemblyRows(jsonReport.MissingDependencies)) ||
@@ -168,7 +181,10 @@ const Report = ({
       </Button>
       {!excelReport ? (
         (showLoader && (
-          <Button color="secondary" style={{ float: 'right', pointerEvents: 'none' }}>
+          <Button
+            color="secondary"
+            style={{ float: 'right', pointerEvents: 'none' }}
+          >
             Loading...
           </Button>
         )) || (
