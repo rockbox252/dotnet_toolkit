@@ -103,6 +103,7 @@ const SearchNuGet = ({ searchNugetPackages, nugetPackageList }) => {
 };
 
 const mapStateToProps = state => {
+  if (!state.app) return {};
   const {
     app: { nugetPackageList },
   } = state;
