@@ -1,6 +1,11 @@
 import axios from 'axios';
 
-import { GENERATE_REPORT, CLEAR_REPORT, SEARCH_NUGET } from './types';
+import {
+  GENERATE_REPORT,
+  CLEAR_REPORT,
+  SEARCH_NUGET,
+  SEARCH_NUGET_PACKAGES,
+} from './types';
 
 export const generateReport = (path, reportType) => async dispatch => {
   const { data } = await axios.post(
@@ -20,11 +25,7 @@ export const clearStore = () => {
   };
 };
 
-export const nugetSearch = (searchTerm, assemblyName) => async (
-  dispatch,
-  getState
-) => {
-  const state = getState();
+export const nugetSearch = (searchTerm, assemblyName) => async dispatch => {
   const { data } = await axios.get(`https://azuresearch-usnc.nuget.org/query`, {
     params: {
       q: searchTerm,
@@ -39,5 +40,19 @@ export const nugetSearch = (searchTerm, assemblyName) => async (
   return dispatch({
     type: SEARCH_NUGET,
     payload: { searchRes: data.data[0], assemblyName },
+  });
+};
+
+export const searchNugetPackages = searchTerm => async dispatch => {
+  const { data } = await axios.get(`https://azuresearch-usnc.nuget.org/query`, {
+    params: {
+      q: searchTerm,
+      prerelease: false,
+      packageType: 'dependency',
+    },
+  });
+  return dispatch({
+    type: SEARCH_NUGET_PACKAGES,
+    payload: data.data,
   });
 };

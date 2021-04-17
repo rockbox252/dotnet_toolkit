@@ -8,7 +8,7 @@ import Report from './Report';
 import IFrame from './IFrame';
 import Estimation from './Estimation';
 import Migration from './Migration';
-import UIConvertor from './UIConvertor';
+import SearchNuGet from './SearchNuGet';
 
 const App = () => {
   const [tabValue, setTabValue] = useState(0);
@@ -32,8 +32,8 @@ const App = () => {
         <Route exact path="/migration">
           <Migration />
         </Route>
-        <Route exact path="/uiconvertor">
-          <UIConvertor />
+        <Route exact path="/search-nuget">
+          <SearchNuGet />
         </Route>
         <Footer />
       </BrowserRouter>

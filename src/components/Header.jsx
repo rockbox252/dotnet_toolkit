@@ -45,9 +45,9 @@ const Header = ({ tabValue, setTabValue }) => {
               disableRipple
             />
             <Tab
-              label="UI Convertor"
+              label="Search NuGet Packages"
               component={Link}
-              to="/uiconvertor"
+              to="/search-nuget"
               disableRipple
             />
           </Tabs>

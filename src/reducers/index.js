@@ -1,6 +1,11 @@
 import { combineReducers } from 'redux';
 
-import { GENERATE_REPORT, CLEAR_REPORT, SEARCH_NUGET } from '../actions/types';
+import {
+  GENERATE_REPORT,
+  CLEAR_REPORT,
+  SEARCH_NUGET,
+  SEARCH_NUGET_PACKAGES,
+} from '../actions/types';
 
 const reducer = (state = null, action) => {
   switch (action.type) {
@@ -28,6 +33,9 @@ const reducer = (state = null, action) => {
       }
 
       return { ...state };
+    }
+    case SEARCH_NUGET_PACKAGES: {
+      return { ...state, nugetPackageList: action.payload };
     }
     default:
       return { ...state };
